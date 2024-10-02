@@ -3,6 +3,11 @@ import fs from 'fs/promises';
 // Function to recursively sort object keys
 function sortObjectKeys(obj) {
     if (Array.isArray(obj)) {
+        // Check if the array contains objects with a 'name' field
+        if (obj.length > 0 && typeof obj[0] === 'object' && 'name' in obj[0]) {
+            // Sort the array by the 'name' field
+            obj.sort((a, b) => a.name.localeCompare(b.name));
+        }
         return obj.map(sortObjectKeys);
     } else if (obj !== null && typeof obj === 'object') {
         return Object.keys(obj).sort().reduce((sortedObj, key) => {
