@@ -62,7 +62,11 @@ const contentToMarkdown = (contents: ContentInterface[]): string => {
   let text = '';
   contents.forEach((content) => {
     if (content) {
-      text += isTextContent(content) ? content.text : isImageContent(content) ? `![image](${content.image_url.url})` : '';
+      if (isTextContent(content)) {
+        text += content.text;
+      } else if (isImageContent(content)) {
+        text += `![image](${content.image_url.url})`;
+      }
       text += "\n\n";
     }
   });
