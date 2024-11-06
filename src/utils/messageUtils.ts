@@ -108,11 +108,12 @@ export const updateTotalTokenUsed = (
   );
 
   // Filter text and image prompts
-  const textPrompts = promptMessages.filter((e) =>
-    e.content.some(isTextContent)
+  const textPrompts = promptMessages.filter(
+    (e) => Array.isArray(e.content) && e.content.some(isTextContent)
   );
-  const imgPrompts = promptMessages.filter((e) =>
-    e.content.some(isImageContent)
+  
+  const imgPrompts = promptMessages.filter(
+    (e) => Array.isArray(e.content) && e.content.some(isImageContent)
   );
 
   // Count tokens
