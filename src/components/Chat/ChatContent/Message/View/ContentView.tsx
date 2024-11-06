@@ -119,9 +119,9 @@ const ContentView = memo(
     const handleCloseZoom = () => {
       setZoomedImage(null);
     };
-    const validImageContents = content
-      .slice(1)
-      .filter(isImageContent) as ImageContentInterface[];
+    const validImageContents = Array.isArray(content)
+    ? (content.slice(1).filter(isImageContent) as ImageContentInterface[])
+    : [];
     return (
       <>
         <div className='markdown prose w-full md:max-w-full break-words dark:prose-invert dark share-gpt-message'>
