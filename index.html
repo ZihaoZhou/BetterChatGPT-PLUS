@@ -23,6 +23,21 @@
   <body>
     <div id="root"></div>
     <div id="modal-root"></div>
+    <div id="version-info"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      fetch('/package.json')
+        .then(response => response.json())
+        .then(data => {
+          const versionInfo = document.getElementById('version-info');
+          versionInfo.textContent = `Version: ${data.version}`;
+          versionInfo.style.position = 'fixed';
+          versionInfo.style.bottom = '10px';
+          versionInfo.style.right = '10px';
+          versionInfo.style.fontSize = '12px';
+          versionInfo.style.color = '#888';
+        })
+        .catch(error => console.error('Error fetching version:', error));
+    </script>
   </body>
 </html>

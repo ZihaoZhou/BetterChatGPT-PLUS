@@ -15,11 +15,31 @@ export const formatNumber = (num: number): string => {
 export const htmlToImg = async (html: HTMLDivElement) => {
   const needResize = window.innerWidth >= 1024;
   const initialWidth = html.style.width;
+  const initialHeight = html.style.height;
+  const initialPosition = html.style.position;
+
   if (needResize) {
     html.style.width = '1023px';
   }
+
+  // Apply print styles temporarily
+  html.classList.add('print-mode');
+
+  // Force layout reflow
+  html.offsetHeight;
+
+  // Temporarily set position to absolute
+  html.style.position = 'absolute';
+
   const canvas = await html2canvas(html);
-  if (needResize) html.style.width = initialWidth;
+
+  // Revert styles
+  if (needResize) {
+    html.style.width = initialWidth;
+    html.style.height = initialHeight;
+  }
+  html.style.position = initialPosition;
+  html.classList.remove('print-mode');
   const dataURL = canvas.toDataURL('image/png');
   return dataURL;
 };
