@@ -12,6 +12,7 @@ import ApiPopup from '@components/ApiPopup';
 import Toast from '@components/Toast';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import VersionInfo from '@components/Footer/VersionInfo';
 
 function App() {
   const initialiseNewChat = useInitialiseNewChat();
@@ -84,6 +85,7 @@ function App() {
         <ApiPopup />
         <Toast />
         <ToastContainer />
+        <VersionInfo />
       </div>
     </div>
   );
