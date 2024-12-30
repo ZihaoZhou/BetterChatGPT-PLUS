@@ -16,6 +16,7 @@ import TotalTokenCost, { TotalTokenCostToggle } from './TotalTokenCost';
 import ClearConversation from '@components/Menu/MenuOptions/ClearConversation';
 import DisplayChatSizeToggle from './DisplayChatSizeToggle';
 import MigrationButton from './MigrationButton';
+import CustomModelsManager from './CustomModelsManager';
 
 const SettingsMenu = () => {
   const { t } = useTranslation();
@@ -59,6 +60,7 @@ const SettingsMenu = () => {
             <ChatConfigMenu />
             <TotalTokenCost />
             <MigrationButton />
+            <CustomModelsManager />
           </div>
         </PopupModal>
       )}

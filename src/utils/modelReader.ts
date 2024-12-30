@@ -1,4 +1,5 @@
 import { ModelCost } from '@type/chat';
+import useStore from '@store/store';
 
 interface ModelData {
   id: string;
@@ -47,6 +48,22 @@ export const loadModels = async (): Promise<{
   const modelCost: ModelCost = {};
   const modelTypes: { [key: string]: string } = {};
   const modelStreamSupport: { [key: string]: boolean } = {};
+
+  // Add custom models first
+  const customModels = useStore.getState().customModels;
+  customModels.forEach((model) => {
+    const modelId = model.id;
+    modelOptions.push(modelId);
+    modelMaxToken[modelId] = model.context_length;
+    modelCost[modelId] = {
+      prompt: { price: parseFloat(model.pricing.prompt), unit: 1 },
+      completion: { price: parseFloat(model.pricing.completion), unit: 1 },
+      image: { price: parseFloat(model.pricing.image), unit: 1 },
+    };
+    
+    modelTypes[modelId] = model.architecture.modality.includes('image') ? 'image' : 'text';
+    modelStreamSupport[modelId] = true;
+  });
 
   // Prepend specific models
   const specificModels = [
@@ -118,8 +135,10 @@ export const loadModels = async (): Promise<{
     modelStreamSupport[modelId] = model.is_stream_supported;
   });
 
-  // Sort modelOptions to prioritize gpt-4o models at the top, followed by o1 models, and then other OpenAI models
+  // Sort modelOptions to prioritize custom models at the top, followed by gpt-4o models, then o1 models, and then other OpenAI models
   modelOptions.sort((a, b) => {
+    const isCustomA = customModels.some(m => m.id === a);
+    const isCustomB = customModels.some(m => m.id === b);
     const isGpt4oA = a.startsWith('gpt-4o');
     const isGpt4oB = b.startsWith('gpt-4o');
     const isO1A = a.startsWith('o1-');
@@ -127,7 +146,11 @@ export const loadModels = async (): Promise<{
     const isOpenAIA = a.startsWith('gpt-');
     const isOpenAIB = b.startsWith('gpt-');
 
-    // Prioritize gpt-4o models
+    // Prioritize custom models
+    if (isCustomA && !isCustomB) return -1;
+    if (!isCustomA && isCustomB) return 1;
+
+    // If both are custom or neither, prioritize gpt-4o models
     if (isGpt4oA && !isGpt4oB) return -1;
     if (!isGpt4oA && isGpt4oB) return 1;
 

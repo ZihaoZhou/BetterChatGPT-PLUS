@@ -7,7 +7,7 @@ let modelCost: ModelCost = {};
 let modelTypes: { [key: string]: string } = {};
 let modelStreamSupport: { [key: string]: boolean } = {};
 
-const initializeModels = async () => {
+export const initializeModels = async () => {
   const models = await loadModels();
   modelOptions = models.modelOptions;
   modelMaxToken = models.modelMaxToken;

@@ -5,6 +5,7 @@ import { ConfigInterface, ImageDetail } from '@type/chat';
 import Select from 'react-select';
 import { modelOptions, modelMaxToken } from '@constants/modelLoader';
 import { ModelOptions } from '@utils/modelReader';
+import useStore from '@store/store';
 
 const ConfigMenu = ({
   setIsModalOpen,
@@ -95,8 +96,15 @@ export const ModelSelector = ({
   _label: string;
 }) => {
   const { t } = useTranslation('model');
+  const [localModelOptions, setLocalModelOptions] = useState<string[]>(modelOptions);
+  const customModels = useStore((state) => state.customModels);
 
-  const modelOptionsFormatted = modelOptions.map((model) => ({
+  // Update model options when custom models change
+  useEffect(() => {
+    setLocalModelOptions([...modelOptions]);
+  }, [customModels]);
+
+  const modelOptionsFormatted = localModelOptions.map((model) => ({
     value: model,
     label: model,
   }));
