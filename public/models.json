@@ -26,6 +26,30 @@
     },
     {
       "architecture": {
+        "instruct_type": "chatml",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 16384,
+      "created": 1723507200,
+      "description": "Starcannon 12B v2 is a creative roleplay and story writing model, based on Mistral Nemo, using [nothingiisreal/mn-celeste-12b](/nothingiisreal/mn-celeste-12b) as a base, with [intervitens/mini-magnum-12b-v1.1](https://huggingface.co/intervitens/mini-magnum-12b-v1.1) merged in using the [TIES](https://arxiv.org/abs/2306.01708) method.\n\nAlthough more similar to Magnum overall, the model remains very creative, with a pleasant writing style. It is recommended for people wanting more variety than Magnum, and yet more verbose prose than Celeste.",
+      "id": "aetherwiing/mn-starcannon-12b",
+      "name": "Aetherwiing: Starcannon 12B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000012",
+        "image": "0",
+        "prompt": "0.0000008",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 16384,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": null,
         "modality": "text->text",
         "tokenizer": "Other"
@@ -140,7 +164,7 @@
       },
       "top_provider": {
         "context_length": 300000,
-        "is_moderated": true,
+        "is_moderated": false,
         "max_completion_tokens": 5120
       }
     },
@@ -164,7 +188,7 @@
       },
       "top_provider": {
         "context_length": 128000,
-        "is_moderated": true,
+        "is_moderated": false,
         "max_completion_tokens": 5120
       }
     },
@@ -188,7 +212,7 @@
       },
       "top_provider": {
         "context_length": 300000,
-        "is_moderated": true,
+        "is_moderated": false,
         "max_completion_tokens": 5120
       }
     },
@@ -678,11 +702,11 @@
         "modality": "text->text",
         "tokenizer": "Router"
       },
-      "context_length": 200000,
+      "context_length": 2000000,
       "created": 1699401600,
-      "description": "Depending on their size, subject, and complexity, your prompts will be sent to [Llama 3 70B Instruct](/models/meta-llama/llama-3-70b-instruct), [Claude 3.5 Sonnet (self-moderated)](/models/anthropic/claude-3.5-sonnet:beta) or [GPT-4o](/models/openai/gpt-4o).  To see which model was used, visit [Activity](/activity).\n\nA major redesign of this router is coming soon. Stay tuned on [Discord](https://discord.gg/fVyRaUDgxW) for updates.",
+      "description": "Your prompt will be processed by a meta-model and routed to one of dozens of models (see below), optimizing for the best possible output.\n\nTo see which model was used, visit [Activity](/activity), or read the `model` attribute of the response. Your response will be priced at the same rate as the routed model.\n\nLearn more about how Not Diamond's meta-model works [here](https://docs.notdiamond.ai/docs/how-not-diamond-works).\n\nRequests will be routed to the following models:\n- [openai/gpt-4o-2024-08-06](/openai/gpt-4o-2024-08-06)\n- [openai/gpt-4o-2024-05-13](/openai/gpt-4o-2024-05-13)\n- [openai/gpt-4o-mini-2024-07-18](/openai/gpt-4o-mini-2024-07-18)\n- [openai/chatgpt-4o-latest](/openai/chatgpt-4o-latest)\n- [openai/o1-preview-2024-09-12](/openai/o1-preview-2024-09-12)\n- [openai/o1-mini-2024-09-12](/openai/o1-mini-2024-09-12)\n- [anthropic/claude-3.5-sonnet](/anthropic/claude-3.5-sonnet)\n- [anthropic/claude-3.5-haiku](/anthropic/claude-3.5-haiku)\n- [anthropic/claude-3-opus](/anthropic/claude-3-opus)\n- [anthropic/claude-2.1](/anthropic/claude-2.1)\n- [google/gemini-pro-1.5](/google/gemini-pro-1.5)\n- [google/gemini-flash-1.5](/google/gemini-flash-1.5)\n- [mistralai/mistral-large-2407](/mistralai/mistral-large-2407)\n- [mistralai/mistral-nemo](/mistralai/mistral-nemo)\n- [meta-llama/llama-3.1-70b-instruct](/meta-llama/llama-3.1-70b-instruct)\n- [meta-llama/llama-3.1-405b-instruct](/meta-llama/llama-3.1-405b-instruct)\n- [mistralai/mixtral-8x22b-instruct](/mistralai/mixtral-8x22b-instruct)\n- [cohere/command-r-plus](/cohere/command-r-plus)\n- [cohere/command-r](/cohere/command-r)",
       "id": "openrouter/auto",
-      "name": "Auto (best for prompt)",
+      "name": "Auto Router (best for prompt)",
       "per_request_limits": null,
       "pricing": {
         "completion": "-1",
@@ -866,6 +890,30 @@
     },
     {
       "architecture": {
+        "instruct_type": null,
+        "modality": "text->text",
+        "tokenizer": "Cohere"
+      },
+      "context_length": 128000,
+      "created": 1734158152,
+      "description": "Command R7B (12-2024) is a small, fast update of the Command R+ model, delivered in December 2024. It excels at RAG, tool use, agents, and similar tasks requiring complex reasoning and multiple steps.",
+      "id": "cohere/command-r7b-12-2024",
+      "name": "Cohere: Command R7B (12-2024)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000015",
+        "image": "0",
+        "prompt": "0.0000000375",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": 4000
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": "chatml",
         "modality": "text->text",
         "tokenizer": "Other"
@@ -894,11 +942,35 @@
         "modality": "text->text",
         "tokenizer": "Other"
       },
-      "context_length": 65536,
+      "context_length": 8192,
       "created": 1715644800,
       "description": "DeepSeek-V2.5 is an upgraded version that combines DeepSeek-V2-Chat and DeepSeek-Coder-V2-Instruct. The new model integrates the general and coding abilities of the two previous versions. For model details, please visit [DeepSeek-V2 page](https://github.com/deepseek-ai/DeepSeek-V2) for more information.",
-      "id": "deepseek/deepseek-chat",
+      "id": "deepseek/deepseek-chat-v2.5",
       "name": "DeepSeek V2.5",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000002",
+        "image": "0",
+        "prompt": "0.000002",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 64000,
+      "created": 1735241320,
+      "description": "DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations reveal that the model outperforms other open-source models and rivals leading closed-source models. For model details, please visit [the DeepSeek-V3 repo](https://github.com/deepseek-ai/DeepSeek-V3) for more information.",
+      "id": "deepseek/deepseek-chat",
+      "name": "DeepSeek V3",
       "per_request_limits": null,
       "pricing": {
         "completion": "0.00000028",
@@ -907,7 +979,7 @@
         "request": "0"
       },
       "top_provider": {
-        "context_length": 65536,
+        "context_length": 64000,
         "is_moderated": false,
         "max_completion_tokens": 8192
       }
@@ -962,13 +1034,37 @@
     },
     {
       "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 16384,
+      "created": 1734377303,
+      "description": "EVA Llama 3.33 70b is a roleplay and storywriting specialist model. It is a full-parameter finetune of [Llama-3.3-70B-Instruct](https://openrouter.ai/meta-llama/llama-3.3-70b-instruct) on mixture of synthetic and natural data.\n\nIt uses Celeste 70B 0.1 data mixture, greatly expanding it to improve versatility, creativity and \"flavor\" of the resulting model\n\nThis model was built with Llama by Meta.\n",
+      "id": "eva-unit-01/eva-llama-3.33-70b",
+      "name": "EVA Llama 3.33 70b",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000006",
+        "image": "0",
+        "prompt": "0.000004",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 16384,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": "chatml",
         "modality": "text->text",
         "tokenizer": "Qwen"
       },
       "context_length": 16384,
       "created": 1731104847,
-      "description": "A roleplaying/storywriting specialist model, full-parameter finetune of Qwen2.5-32B on mixture of synthetic and natural data.\n\nIt uses Celeste 70B 0.1 data mixture, greatly expanding it to improve versatility, creativity and \"flavor\" of the resulting model.",
+      "description": "EVA Qwen2.5 32B is a roleplaying/storywriting specialist model. It's a full-parameter finetune of Qwen2.5-32B on mixture of synthetic and natural data.\n\nIt uses Celeste 70B 0.1 data mixture, greatly expanding it to improve versatility, creativity and \"flavor\" of the resulting model.",
       "id": "eva-unit-01/eva-qwen-2.5-32b",
       "name": "EVA Qwen2.5 32B",
       "per_request_limits": null,
@@ -992,7 +1088,7 @@
       },
       "context_length": 16384,
       "created": 1732210606,
-      "description": "A roleplay and storywriting specialist model, full-parameter finetune of Qwen2.5-72B on mixture of synthetic and natural data.\n\nIt uses Celeste 70B 0.1 data mixture, greatly expanding it to improve versatility, creativity and \"flavor\" of the resulting model.",
+      "description": "EVA Qwen2.5 72B is a roleplay and storywriting specialist model. It's a full-parameter finetune of Qwen2.5-72B on mixture of synthetic and natural data.\n\nIt uses Celeste 70B 0.1 data mixture, greatly expanding it to improve versatility, creativity and \"flavor\" of the resulting model.",
       "id": "eva-unit-01/eva-qwen-2.5-72b",
       "name": "EVA Qwen2.5 72B",
       "per_request_limits": null,
@@ -1038,11 +1134,131 @@
         "modality": "text+image->text",
         "tokenizer": "Gemini"
       },
+      "context_length": 40000,
+      "created": 1734650026,
+      "description": "Gemini 2.0 Flash Thinking Mode is an experimental model that's trained to generate the \"thinking process\" the model goes through as part of its response. As a result, Thinking Mode is capable of stronger reasoning capabilities in its responses than the [base Gemini 2.0 Flash model](/google/gemini-2.0-flash-exp).",
+      "id": "google/gemini-2.0-flash-thinking-exp:free",
+      "name": "Google: Gemini 2.0 Flash Thinking Experimental (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 40000,
+        "is_moderated": false,
+        "max_completion_tokens": 8000
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Gemini"
+      },
+      "context_length": 40960,
+      "created": 1731714740,
+      "description": "Gemini 11-14 (2024) experimental model features \"quality\" improvements.",
+      "id": "google/gemini-exp-1114:free",
+      "name": "Google: Gemini Experimental 1114 (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 40960,
+        "is_moderated": false,
+        "max_completion_tokens": 8192
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Gemini"
+      },
+      "context_length": 40960,
+      "created": 1732216725,
+      "description": "Experimental release (November 21st, 2024) of Gemini.",
+      "id": "google/gemini-exp-1121:free",
+      "name": "Google: Gemini Experimental 1121 (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 40960,
+        "is_moderated": false,
+        "max_completion_tokens": 8192
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Gemini"
+      },
+      "context_length": 2097152,
+      "created": 1733507713,
+      "description": "Experimental release (December 6, 2024) of Gemini.",
+      "id": "google/gemini-exp-1206:free",
+      "name": "Google: Gemini Experimental 1206 (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 2097152,
+        "is_moderated": false,
+        "max_completion_tokens": 8192
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Gemini"
+      },
+      "context_length": 1000000,
+      "created": 1715644800,
+      "description": "Gemini 1.5 Flash is a foundation model that performs well at a variety of multimodal tasks such as visual understanding, classification, summarization, and creating content from image, audio and video. It's adept at processing visual and text inputs such as photographs, documents, infographics, and screenshots.\n\nGemini 1.5 Flash is designed for high-volume, high-frequency tasks where cost and latency matter. On most common tasks, Flash achieves comparable quality to other Gemini Pro models at a significantly reduced cost. Flash is well-suited for applications like chat assistants and on-demand content generation where speed and scale matter.\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).\n\n#multimodal",
+      "id": "google/gemini-flash-1.5",
+      "name": "Google: Gemini Flash 1.5",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000003",
+        "image": "0.00004",
+        "prompt": "0.000000075",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 1000000,
+        "is_moderated": false,
+        "max_completion_tokens": 8192
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Gemini"
+      },
       "context_length": 1000000,
       "created": 1727913600,
-      "description": "Gemini 1.5 Flash-8B is optimized for speed and efficiency, offering enhanced performance in small prompt tasks like chat, transcription, and translation. With reduced latency, it is highly effective for real-time and large-scale operations. This model focuses on cost-effective solutions while maintaining high-quality results.\n\n[Click here to learn more about this model](https://developers.googleblog.com/en/gemini-15-flash-8b-is-now-generally-available-for-use/).\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).",
+      "description": "Gemini Flash 1.5 8B is optimized for speed and efficiency, offering enhanced performance in small prompt tasks like chat, transcription, and translation. With reduced latency, it is highly effective for real-time and large-scale operations. This model focuses on cost-effective solutions while maintaining high-quality results.\n\n[Click here to learn more about this model](https://developers.googleblog.com/en/gemini-15-flash-8b-is-now-generally-available-for-use/).\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).",
       "id": "google/gemini-flash-1.5-8b",
-      "name": "Google: Gemini 1.5 Flash-8B",
+      "name": "Google: Gemini Flash 1.5 8B",
       "per_request_limits": null,
       "pricing": {
         "completion": "0.00000015",
@@ -1062,88 +1278,16 @@
         "modality": "text+image->text",
         "tokenizer": "Gemini"
       },
-      "context_length": 8192,
-      "created": 1731714740,
-      "description": "Gemini 11-14 (2024) experimental model features \"quality\" improvements.",
-      "id": "google/gemini-exp-1114:free",
-      "name": "Google: Gemini Experimental 1114 (free)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0",
-        "image": "0",
-        "prompt": "0",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text+image->text",
-        "tokenizer": "Gemini"
-      },
-      "context_length": 8192,
-      "created": 1732216725,
-      "description": "Experimental release (November 21st, 2024) of Gemini.",
-      "id": "google/gemini-exp-1121:free",
-      "name": "Google: Gemini Experimental 1121 (free)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0",
-        "image": "0",
-        "prompt": "0",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text+image->text",
-        "tokenizer": "Gemini"
-      },
-      "context_length": 8192,
-      "created": 1733507713,
-      "description": "Experimental release (December 6, 2024) of Gemini.",
-      "id": "google/gemini-exp-1206:free",
-      "name": "Google: Gemini Experimental 1206 (free)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0",
-        "image": "0",
-        "prompt": "0",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text+image->text",
-        "tokenizer": "Gemini"
-      },
       "context_length": 1000000,
-      "created": 1715644800,
-      "description": "Gemini 1.5 Flash is a foundation model that performs well at a variety of multimodal tasks such as visual understanding, classification, summarization, and creating content from image, audio and video. It's adept at processing visual and text inputs such as photographs, documents, infographics, and screenshots.\n\nGemini 1.5 Flash is designed for high-volume, high-frequency tasks where cost and latency matter. On most common tasks, Flash achieves comparable quality to other Gemini Pro models at a significantly reduced cost. Flash is well-suited for applications like chat assistants and on-demand content generation where speed and scale matter.\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).\n\n#multimodal",
-      "id": "google/gemini-flash-1.5",
-      "name": "Google: Gemini Flash 1.5",
+      "created": 1724803200,
+      "description": "Gemini Flash 1.5 8B Experimental is an experimental, 8B parameter version of the [Gemini Flash 1.5](/models/google/gemini-flash-1.5) model.\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).\n\n#multimodal\n\nNote: This model is currently experimental and not suitable for production use-cases, and may be heavily rate-limited.",
+      "id": "google/gemini-flash-1.5-8b-exp",
+      "name": "Google: Gemini Flash 1.5 8B Experimental",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000003",
-        "image": "0.00004",
-        "prompt": "0.000000075",
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
         "request": "0"
       },
       "top_provider": {
@@ -1182,11 +1326,11 @@
         "modality": "text+image->text",
         "tokenizer": "Gemini"
       },
-      "context_length": 1000000,
-      "created": 1724803200,
-      "description": "Gemini 1.5 Flash 8B Experimental is an experimental, 8B parameter version of the [Gemini 1.5 Flash](/models/google/gemini-flash-1.5) model.\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).\n\n#multimodal\n\nNote: This model is currently experimental and not suitable for production use-cases, and may be heavily rate-limited.",
-      "id": "google/gemini-flash-1.5-8b-exp",
-      "name": "Google: Gemini Flash 8B 1.5 Experimental",
+      "context_length": 1048576,
+      "created": 1733937523,
+      "description": "Gemini Flash 2.0 offers a significantly faster time to first token (TTFT) compared to [Gemini Flash 1.5](google/gemini-flash-1.5), while maintaining quality on par with larger models like [Gemini Pro 1.5](google/gemini-pro-1.5). It introduces notable enhancements in multimodal understanding, coding capabilities, complex instruction following, and function calling. These advancements come together to deliver more seamless and robust agentic experiences.",
+      "id": "google/gemini-2.0-flash-exp:free",
+      "name": "Google: Gemini Flash 2.0 Experimental (free)",
       "per_request_limits": null,
       "pricing": {
         "completion": "0",
@@ -1195,7 +1339,7 @@
         "request": "0"
       },
       "top_provider": {
-        "context_length": 1000000,
+        "context_length": 1048576,
         "is_moderated": false,
         "max_completion_tokens": 8192
       }
@@ -1374,7 +1518,7 @@
         "modality": "text+image->text",
         "tokenizer": "Gemini"
       },
-      "context_length": 8192,
+      "context_length": 40960,
       "created": 1732216551,
       "description": "An experimental version of [Gemini 1.5 Pro](/google/gemini-pro-1.5) from Google.",
       "id": "google/learnlm-1.5-pro-experimental:free",
@@ -1387,9 +1531,9 @@
         "request": "0"
       },
       "top_provider": {
-        "context_length": 8192,
+        "context_length": 40960,
         "is_moderated": false,
-        "max_completion_tokens": 4096
+        "max_completion_tokens": 8192
       }
     },
     {
@@ -1514,6 +1658,54 @@
     },
     {
       "architecture": {
+        "instruct_type": "mistral",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 32000,
+      "created": 1731464428,
+      "description": "Inferor 12B is a merge of top roleplay models, expert on immersive narratives and storytelling.\n\nThis model was merged using the [Model Stock](https://arxiv.org/abs/2403.19522) merge method using [anthracite-org/magnum-v4-12b](https://openrouter.ai/anthracite-org/magnum-v4-72b) as a base.\n",
+      "id": "infermatic/mn-inferor-12b",
+      "name": "Infermatic: Mistral Nemo Inferor 12B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000005",
+        "image": "0",
+        "prompt": "0.00000025",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "chatml",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 16000,
+      "created": 1734535439,
+      "description": "Mag Mell is a merge of pre-trained language models created using mergekit, based on [Mistral Nemo](/mistralai/mistral-nemo). It is a great roleplay and storytelling model which combines the best parts of many other models to be a general purpose solution for many usecases.\n\nIntended to be a general purpose \"Best of Nemo\" model for any fictional, creative use case. \n\nMag Mell is composed of 3 intermediate parts:\n- Hero (RP, trope coverage)\n- Monk (Intelligence, groundedness)\n- Deity (Prose, flair)",
+      "id": "inflatebot/mn-mag-mell-r1",
+      "name": "Inflatebot: Mag Mell R1 12B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000009",
+        "image": "0",
+        "prompt": "0.0000009",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 16000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": null,
         "modality": "text->text",
         "tokenizer": "Other"
@@ -1533,7 +1725,7 @@
       "top_provider": {
         "context_length": 8000,
         "is_moderated": false,
-        "max_completion_tokens": null
+        "max_completion_tokens": 1024
       }
     },
     {
@@ -1582,198 +1774,6 @@
         "context_length": 66000,
         "is_moderated": false,
         "max_completion_tokens": 66000
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 8192,
-      "created": 1723507200,
-      "description": "Lunaris 8B is a versatile generalist and roleplaying model based on Llama 3. It's a strategic merge of multiple models, designed to balance creativity with improved logic and general knowledge.\n\nCreated by [Sao10k](https://huggingface.co/Sao10k), this model aims to offer an improved experience over Stheno v3.2, with enhanced creativity and logical reasoning.\n\nFor best results, use with Llama 3 Instruct context template, temperature 1.4, and min_p 0.1.",
-      "id": "sao10k/l3-lunaris-8b",
-      "name": "Llama 3 8B Lunaris",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00000006",
-        "image": "0",
-        "prompt": "0.00000003",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 8192,
-      "created": 1718668800,
-      "description": "Euryale 70B v2.1 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k).\n\n- Better prompt adherence.\n- Better anatomy / spatial awareness.\n- Adapts much better to unique and custom formatting / reply formats.\n- Very creative, lots of unique swipes.\n- Is not restrictive during roleplays.",
-      "id": "sao10k/l3-euryale-70b",
-      "name": "Llama 3 Euryale 70B v2.1",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000004",
-        "image": "0",
-        "prompt": "0.00000035",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 8192,
-      "created": 1715817600,
-      "description": "The NeverSleep team is back, with a Llama 3 70B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-      "id": "neversleep/llama-3-lumimaid-70b",
-      "name": "Llama 3 Lumimaid 70B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000045",
-        "image": "0",
-        "prompt": "0.000003375",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 2048
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 24576,
-      "created": 1714780800,
-      "description": "The NeverSleep team is back, with a Llama 3 8B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-      "id": "neversleep/llama-3-lumimaid-8b",
-      "name": "Llama 3 Lumimaid 8B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.000001125",
-        "image": "0",
-        "prompt": "0.0000001875",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 24576,
-        "is_moderated": false,
-        "max_completion_tokens": 2048
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 24576,
-      "created": 1714780800,
-      "description": "The NeverSleep team is back, with a Llama 3 8B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-      "id": "neversleep/llama-3-lumimaid-8b:extended",
-      "name": "Llama 3 Lumimaid 8B (extended)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.000001125",
-        "image": "0",
-        "prompt": "0.0000001875",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 24576,
-        "is_moderated": false,
-        "max_completion_tokens": 2048
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 128000,
-      "created": 1724803200,
-      "description": "Euryale L3.1 70B v2.2 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k). It is the successor of [Euryale L3 70B v2.1](/models/sao10k/l3-euryale-70b).",
-      "id": "sao10k/l3.1-euryale-70b",
-      "name": "Llama 3.1 Euryale 70B v2.2",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000004",
-        "image": "0",
-        "prompt": "0.00000035",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 16384,
-      "created": 1729555200,
-      "description": "Lumimaid v0.2 70B is a finetune of [Llama 3.1 70B](/meta-llama/llama-3.1-70b-instruct) with a \"HUGE step up dataset wise\" compared to Lumimaid v0.1. Sloppy chats output were purged.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-      "id": "neversleep/llama-3.1-lumimaid-70b",
-      "name": "Lumimaid v0.2 70B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000045",
-        "image": "0",
-        "prompt": "0.000003375",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 16384,
-        "is_moderated": false,
-        "max_completion_tokens": 2048
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama3",
-        "modality": "text->text",
-        "tokenizer": "Llama3"
-      },
-      "context_length": 32768,
-      "created": 1726358400,
-      "description": "Lumimaid v0.2 8B is a finetune of [Llama 3.1 8B](/models/meta-llama/llama-3.1-8b-instruct) with a \"HUGE step up dataset wise\" compared to Lumimaid v0.1. Sloppy chats output were purged.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-      "id": "neversleep/llama-3.1-lumimaid-8b",
-      "name": "Lumimaid v0.2 8B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.000001125",
-        "image": "0",
-        "prompt": "0.0000001875",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 32768,
-        "is_moderated": false,
-        "max_completion_tokens": 2048
       }
     },
     {
@@ -1894,6 +1894,30 @@
         "context_length": 8000,
         "is_moderated": false,
         "max_completion_tokens": 1000
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama2",
+        "modality": "text->text",
+        "tokenizer": "Llama2"
+      },
+      "context_length": 4096,
+      "created": 1687219200,
+      "description": "A 13 billion parameter language model from Meta, fine tuned for chat completions",
+      "id": "meta-llama/llama-2-13b-chat",
+      "name": "Meta: Llama 2 13B Chat",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000000198",
+        "image": "0",
+        "prompt": "0.000000198",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 4096,
+        "is_moderated": false,
+        "max_completion_tokens": null
       }
     },
     {
@@ -2077,9 +2101,9 @@
       "name": "Meta: Llama 3.1 405B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000009",
+        "completion": "0.0000008",
         "image": "0",
-        "prompt": "0.0000009",
+        "prompt": "0.0000008",
         "request": "0"
       },
       "top_provider": {
@@ -2149,9 +2173,9 @@
       "name": "Meta: Llama 3.1 70B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000004",
+        "completion": "0.0000003",
         "image": "0",
-        "prompt": "0.00000013",
+        "prompt": "0.00000012",
         "request": "0"
       },
       "top_provider": {
@@ -2317,7 +2341,7 @@
       "name": "Meta: Llama 3.2 1B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.00000002",
+        "completion": "0.00000001",
         "image": "0",
         "prompt": "0.00000001",
         "request": "0"
@@ -2325,7 +2349,7 @@
       "top_provider": {
         "context_length": 131072,
         "is_moderated": false,
-        "max_completion_tokens": 4096
+        "max_completion_tokens": null
       }
     },
     {
@@ -2358,22 +2382,22 @@
         "modality": "text->text",
         "tokenizer": "Llama3"
       },
-      "context_length": 131072,
+      "context_length": 131000,
       "created": 1727222400,
       "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.\n\nTrained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
       "id": "meta-llama/llama-3.2-3b-instruct",
       "name": "Meta: Llama 3.2 3B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.00000003",
+        "completion": "0.000000025",
         "image": "0",
-        "prompt": "0.000000018",
+        "prompt": "0.000000015",
         "request": "0"
       },
       "top_provider": {
-        "context_length": 131072,
+        "context_length": 131000,
         "is_moderated": false,
-        "max_completion_tokens": 4096
+        "max_completion_tokens": 131000
       }
     },
     {
@@ -2461,37 +2485,13 @@
       "name": "Meta: Llama 3.3 70B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000004",
+        "completion": "0.0000003",
         "image": "0",
-        "prompt": "0.00000013",
+        "prompt": "0.00000012",
         "request": "0"
       },
       "top_provider": {
         "context_length": 131072,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "llama2",
-        "modality": "text->text",
-        "tokenizer": "Llama2"
-      },
-      "context_length": 4096,
-      "created": 1687219200,
-      "description": "A 13 billion parameter language model from Meta, fine tuned for chat completions",
-      "id": "meta-llama/llama-2-13b-chat",
-      "name": "Meta: Llama v2 13B Chat",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.000000198",
-        "image": "0",
-        "prompt": "0.000000198",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 4096,
         "is_moderated": false,
         "max_completion_tokens": null
       }
@@ -2522,6 +2522,126 @@
     },
     {
       "architecture": {
+        "instruct_type": "phi3",
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 128000,
+      "created": 1716508800,
+      "description": "Phi-3 128K Medium is a powerful 14-billion parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. In the MMLU-Pro eval, the model even comes close to a Llama3 70B level of performance.\n\nFor 4k context length, try [Phi-3 Medium 4K](/models/microsoft/phi-3-medium-4k-instruct).",
+      "id": "microsoft/phi-3-medium-128k-instruct",
+      "name": "Microsoft: Phi-3 Medium 128K Instruct",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000001",
+        "image": "0",
+        "prompt": "0.000001",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "phi3",
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 8192,
+      "created": 1716508800,
+      "description": "Phi-3 128K Medium is a powerful 14-billion parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. In the MMLU-Pro eval, the model even comes close to a Llama3 70B level of performance.\n\nFor 4k context length, try [Phi-3 Medium 4K](/models/microsoft/phi-3-medium-4k-instruct).",
+      "id": "microsoft/phi-3-medium-128k-instruct:free",
+      "name": "Microsoft: Phi-3 Medium 128K Instruct (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "phi3",
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 128000,
+      "created": 1716681600,
+      "description": "Phi-3 Mini is a powerful 3.8B parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. This model is static, trained on an offline dataset with an October 2023 cutoff date.",
+      "id": "microsoft/phi-3-mini-128k-instruct",
+      "name": "Microsoft: Phi-3 Mini 128K Instruct",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000001",
+        "image": "0",
+        "prompt": "0.0000001",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "phi3",
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 8192,
+      "created": 1716681600,
+      "description": "Phi-3 Mini is a powerful 3.8B parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. This model is static, trained on an offline dataset with an October 2023 cutoff date.",
+      "id": "microsoft/phi-3-mini-128k-instruct:free",
+      "name": "Microsoft: Phi-3 Mini 128K Instruct (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "phi3",
+        "modality": "text->text",
+        "tokenizer": "Other"
+      },
+      "context_length": 128000,
+      "created": 1724198400,
+      "description": "Phi-3.5 models are lightweight, state-of-the-art open models. These models were trained with Phi-3 datasets that include both synthetic data and the filtered, publicly available websites data, with a focus on high quality and reasoning-dense properties. Phi-3.5 Mini uses 3.8B parameters, and is a dense decoder-only transformer model using the same tokenizer as [Phi-3 Mini](/models/microsoft/phi-3-mini-128k-instruct).\n\nThe models underwent a rigorous enhancement process, incorporating both supervised fine-tuning, proximal policy optimization, and direct preference optimization to ensure precise instruction adherence and robust safety measures. When assessed against benchmarks that test common sense, language understanding, math, code, long context and logical reasoning, Phi-3.5 models showcased robust and state-of-the-art performance among models with less than 13 billion parameters.",
+      "id": "microsoft/phi-3.5-mini-128k-instruct",
+      "name": "Microsoft: Phi-3.5 Mini 128K Instruct",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000001",
+        "image": "0",
+        "prompt": "0.0000001",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": "airoboros",
         "modality": "text->text",
         "tokenizer": "Llama2"
@@ -2540,54 +2660,6 @@
       },
       "top_provider": {
         "context_length": 4096,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 128000,
-      "created": 1729123200,
-      "description": "Ministral 3B is a 3B parameter model optimized for on-device and edge computing. It excels in knowledge, commonsense reasoning, and function-calling, outperforming larger models like Mistral 7B on most benchmarks. Supporting up to 128k context length, it’s ideal for orchestrating agentic workflows and specialist tasks with efficient inference.",
-      "id": "mistralai/ministral-3b",
-      "name": "Ministral 3B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00000004",
-        "image": "0",
-        "prompt": "0.00000004",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 128000,
-      "created": 1729123200,
-      "description": "Ministral 8B is an 8B parameter model featuring a unique interleaved sliding-window attention pattern for faster, memory-efficient inference. Designed for edge use cases, it supports up to 128k context length and excels in knowledge and reasoning tasks. It outperforms peers in the sub-10B category, making it perfect for low-latency, privacy-first applications.",
-      "id": "mistralai/ministral-8b",
-      "name": "Ministral 8B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000001",
-        "image": "0",
-        "prompt": "0.0000001",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
         "is_moderated": false,
         "max_completion_tokens": null
       }
@@ -2714,54 +2786,6 @@
     },
     {
       "architecture": {
-        "instruct_type": "chatml",
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 16384,
-      "created": 1723507200,
-      "description": "Starcannon 12B is a creative roleplay and story writing model, using [nothingiisreal/mn-celeste-12b](https://openrouter.ai/models/nothingiisreal/mn-celeste-12b) as a base and [intervitens/mini-magnum-12b-v1.1](https://huggingface.co/intervitens/mini-magnum-12b-v1.1) merged in using the [TIES](https://arxiv.org/abs/2306.01708) method.\n\nAlthough more similar to Magnum overall, the model remains very creative, with a pleasant writing style. It is recommended for people wanting more variety than Magnum, and yet more verbose prose than Celeste.",
-      "id": "aetherwiing/mn-starcannon-12b",
-      "name": "Mistral Nemo 12B Starcannon",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000012",
-        "image": "0",
-        "prompt": "0.0000008",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 16384,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "mistral",
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 32000,
-      "created": 1731464428,
-      "description": "Inferor is a merge of top roleplay models, expert on immersive narratives and storytelling.\n\nThis model was merged using the [Model Stock](https://arxiv.org/abs/2403.19522) merge method using [anthracite-org/magnum-v4-12b](https://openrouter.ai/anthracite-org/magnum-v4-72b) as a base.\n",
-      "id": "infermatic/mn-inferor-12b",
-      "name": "Mistral Nemo Inferor 12B",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000005",
-        "image": "0",
-        "prompt": "0.00000025",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 32000,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
         "instruct_type": null,
         "modality": "text->text",
         "tokenizer": "Mistral"
@@ -2828,6 +2852,54 @@
       },
       "top_provider": {
         "context_length": 256000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 128000,
+      "created": 1729123200,
+      "description": "Ministral 3B is a 3B parameter model optimized for on-device and edge computing. It excels in knowledge, commonsense reasoning, and function-calling, outperforming larger models like Mistral 7B on most benchmarks. Supporting up to 128k context length, it’s ideal for orchestrating agentic workflows and specialist tasks with efficient inference.",
+      "id": "mistralai/ministral-3b",
+      "name": "Mistral: Ministral 3B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000004",
+        "image": "0",
+        "prompt": "0.00000004",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 128000,
+      "created": 1729123200,
+      "description": "Ministral 8B is an 8B parameter model featuring a unique interleaved sliding-window attention pattern for faster, memory-efficient inference. Designed for edge use cases, it supports up to 128k context length and excels in knowledge and reasoning tasks. It outperforms peers in the sub-10B category, making it perfect for low-latency, privacy-first applications.",
+      "id": "mistralai/ministral-8b",
+      "name": "Mistral: Ministral 8B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000001",
+        "image": "0",
+        "prompt": "0.0000001",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
         "is_moderated": false,
         "max_completion_tokens": null
       }
@@ -2989,9 +3061,9 @@
       "name": "Mistral: Mistral Nemo",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000001",
+        "completion": "0.00000008",
         "image": "0",
-        "prompt": "0.00000004",
+        "prompt": "0.000000035",
         "request": "0"
       },
       "top_provider": {
@@ -3020,6 +3092,78 @@
       },
       "top_provider": {
         "context_length": 65536,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "none",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 32768,
+      "created": 1702166400,
+      "description": "Mixtral 8x7B is a pretrained generative Sparse Mixture of Experts, by Mistral AI. Incorporates 8 experts (feed-forward networks) for a total of 47B parameters. Base model (not fine-tuned for instructions) - see [Mixtral 8x7B Instruct](/models/mistralai/mixtral-8x7b-instruct) for an instruct-tuned model.\n\n#moe",
+      "id": "mistralai/mixtral-8x7b",
+      "name": "Mistral: Mixtral 8x7B (base)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000054",
+        "image": "0",
+        "prompt": "0.00000054",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32768,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "mistral",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 32768,
+      "created": 1702166400,
+      "description": "Mixtral 8x7B Instruct is a pretrained generative Sparse Mixture of Experts, by Mistral AI, for chat and instruction use. Incorporates 8 experts (feed-forward networks) for a total of 47 billion parameters.\n\nInstruct model fine-tuned by Mistral. #moe",
+      "id": "mistralai/mixtral-8x7b-instruct",
+      "name": "Mistral: Mixtral 8x7B Instruct",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000024",
+        "image": "0",
+        "prompt": "0.00000024",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32768,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "mistral",
+        "modality": "text->text",
+        "tokenizer": "Mistral"
+      },
+      "context_length": 32768,
+      "created": 1702166400,
+      "description": "Mixtral 8x7B Instruct is a pretrained generative Sparse Mixture of Experts, by Mistral AI, for chat and instruction use. Incorporates 8 experts (feed-forward networks) for a total of 47 billion parameters.\n\nInstruct model fine-tuned by Mistral. #moe",
+      "id": "mistralai/mixtral-8x7b-instruct:nitro",
+      "name": "Mistral: Mixtral 8x7B Instruct (nitro)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000054",
+        "image": "0",
+        "prompt": "0.00000054",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32768,
         "is_moderated": false,
         "max_completion_tokens": null
       }
@@ -3074,78 +3218,6 @@
     },
     {
       "architecture": {
-        "instruct_type": "none",
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 32768,
-      "created": 1702166400,
-      "description": "A pretrained generative Sparse Mixture of Experts, by Mistral AI. Incorporates 8 experts (feed-forward networks) for a total of 47B parameters. Base model (not fine-tuned for instructions) - see [Mixtral 8x7B Instruct](/models/mistralai/mixtral-8x7b-instruct) for an instruct-tuned model.\n\n#moe",
-      "id": "mistralai/mixtral-8x7b",
-      "name": "Mixtral 8x7B (base)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00000054",
-        "image": "0",
-        "prompt": "0.00000054",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 32768,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "mistral",
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 32768,
-      "created": 1702166400,
-      "description": "A pretrained generative Sparse Mixture of Experts, by Mistral AI, for chat and instruction use. Incorporates 8 experts (feed-forward networks) for a total of 47 billion parameters.\n\nInstruct model fine-tuned by Mistral. #moe",
-      "id": "mistralai/mixtral-8x7b-instruct",
-      "name": "Mixtral 8x7B Instruct",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00000024",
-        "image": "0",
-        "prompt": "0.00000024",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 32768,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "mistral",
-        "modality": "text->text",
-        "tokenizer": "Mistral"
-      },
-      "context_length": 32768,
-      "created": 1702166400,
-      "description": "A pretrained generative Sparse Mixture of Experts, by Mistral AI, for chat and instruction use. Incorporates 8 experts (feed-forward networks) for a total of 47 billion parameters.\n\nInstruct model fine-tuned by Mistral. #moe",
-      "id": "mistralai/mixtral-8x7b-instruct:nitro",
-      "name": "Mixtral 8x7B Instruct (nitro)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00000054",
-        "image": "0",
-        "prompt": "0.00000054",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 32768,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
         "instruct_type": "alpaca",
         "modality": "text->text",
         "tokenizer": "Llama2"
@@ -3157,9 +3229,9 @@
       "name": "MythoMax 13B",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.00000008",
+        "completion": "0.000000065",
         "image": "0",
-        "prompt": "0.00000008",
+        "prompt": "0.000000065",
         "request": "0"
       },
       "top_provider": {
@@ -3238,6 +3310,126 @@
         "context_length": 4096,
         "is_moderated": false,
         "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 8192,
+      "created": 1715817600,
+      "description": "The NeverSleep team is back, with a Llama 3 70B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+      "id": "neversleep/llama-3-lumimaid-70b",
+      "name": "NeverSleep: Llama 3 Lumimaid 70B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000045",
+        "image": "0",
+        "prompt": "0.000003375",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": 2048
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 24576,
+      "created": 1714780800,
+      "description": "The NeverSleep team is back, with a Llama 3 8B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+      "id": "neversleep/llama-3-lumimaid-8b",
+      "name": "NeverSleep: Llama 3 Lumimaid 8B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000001125",
+        "image": "0",
+        "prompt": "0.0000001875",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 24576,
+        "is_moderated": false,
+        "max_completion_tokens": 2048
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 24576,
+      "created": 1714780800,
+      "description": "The NeverSleep team is back, with a Llama 3 8B finetune trained on their curated roleplay data. Striking a balance between eRP and RP, Lumimaid was designed to be serious, yet uncensored when necessary.\n\nTo enhance it's overall intelligence and chat capability, roughly 40% of the training data was not roleplay. This provides a breadth of knowledge to access, while still keeping roleplay as the primary strength.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+      "id": "neversleep/llama-3-lumimaid-8b:extended",
+      "name": "NeverSleep: Llama 3 Lumimaid 8B (extended)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000001125",
+        "image": "0",
+        "prompt": "0.0000001875",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 24576,
+        "is_moderated": false,
+        "max_completion_tokens": 2048
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 16384,
+      "created": 1729555200,
+      "description": "Lumimaid v0.2 70B is a finetune of [Llama 3.1 70B](/meta-llama/llama-3.1-70b-instruct) with a \"HUGE step up dataset wise\" compared to Lumimaid v0.1. Sloppy chats output were purged.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+      "id": "neversleep/llama-3.1-lumimaid-70b",
+      "name": "NeverSleep: Lumimaid v0.2 70B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000045",
+        "image": "0",
+        "prompt": "0.000003375",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 16384,
+        "is_moderated": false,
+        "max_completion_tokens": 2048
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 32768,
+      "created": 1726358400,
+      "description": "Lumimaid v0.2 8B is a finetune of [Llama 3.1 8B](/models/meta-llama/llama-3.1-8b-instruct) with a \"HUGE step up dataset wise\" compared to Lumimaid v0.1. Sloppy chats output were purged.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+      "id": "neversleep/llama-3.1-lumimaid-8b",
+      "name": "NeverSleep: Lumimaid v0.2 8B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.000001125",
+        "image": "0",
+        "prompt": "0.0000001875",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32768,
+        "is_moderated": false,
+        "max_completion_tokens": 2048
       }
     },
     {
@@ -3325,9 +3517,9 @@
       "name": "Nous: Hermes 3 405B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000009",
+        "completion": "0.0000008",
         "image": "0",
-        "prompt": "0.0000009",
+        "prompt": "0.0000008",
         "request": "0"
       },
       "top_provider": {
@@ -3349,9 +3541,9 @@
       "name": "Nous: Hermes 3 70B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000002",
+        "completion": "0.0000003",
         "image": "0",
-        "prompt": "0.0000002",
+        "prompt": "0.00000012",
         "request": "0"
       },
       "top_provider": {
@@ -3373,9 +3565,9 @@
       "name": "NousResearch: Hermes 2 Pro - Llama-3 8B",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.00000003",
+        "completion": "0.00000004",
         "image": "0",
-        "prompt": "0.00000003",
+        "prompt": "0.000000025",
         "request": "0"
       },
       "top_provider": {
@@ -3397,9 +3589,9 @@
       "name": "NVIDIA: Llama 3.1 Nemotron 70B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000002",
+        "completion": "0.0000003",
         "image": "0",
-        "prompt": "0.0000002",
+        "prompt": "0.00000012",
         "request": "0"
       },
       "top_provider": {
@@ -3751,30 +3943,6 @@
         "tokenizer": "GPT"
       },
       "context_length": 128000,
-      "created": 1699833600,
-      "description": "Ability to understand images, in addition to all other [GPT-4 Turbo capabilties](/models/openai/gpt-4-turbo). Training data: up to Apr 2023.\n\n**Note:** heavily rate limited by OpenAI while in preview.\n\n#multimodal",
-      "id": "openai/gpt-4-vision-preview",
-      "name": "OpenAI: GPT-4 Vision",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.00003",
-        "image": "0.01445",
-        "prompt": "0.00001",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": true,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": null,
-        "modality": "text+image->text",
-        "tokenizer": "GPT"
-      },
-      "context_length": 128000,
       "created": 1715558400,
       "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's latest AI model, supporting both text and image inputs with text outputs. It maintains the intelligence level of [GPT-4 Turbo](/models/openai/gpt-4-turbo) while being twice as fast and 50% more cost-effective. GPT-4o also offers improved performance in processing non-English languages and enhanced visual capabilities.\n\nFor benchmarking against other models, it was briefly called [\"im-also-a-good-gpt2-chatbot\"](https://twitter.com/LiamFedus/status/1790064963966370209)\n\n#multimodal",
       "id": "openai/gpt-4o",
@@ -3934,6 +4102,30 @@
         "context_length": 128000,
         "is_moderated": true,
         "max_completion_tokens": 16384
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "GPT"
+      },
+      "context_length": 200000,
+      "created": 1734459999,
+      "description": "The latest and strongest model family from OpenAI, o1 is designed to spend more time thinking before responding. The o1 model series is trained with large-scale reinforcement learning to reason using chain of thought. \n\nThe o1 models are optimized for math, science, programming, and other STEM-related tasks. They consistently exhibit PhD-level accuracy on benchmarks in physics, chemistry, and biology. Learn more in the [launch announcement](https://openai.com/o1).\n",
+      "id": "openai/o1",
+      "name": "OpenAI: o1",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00006",
+        "image": "0.021675",
+        "prompt": "0.000015",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 200000,
+        "is_moderated": true,
+        "max_completion_tokens": 100000
       }
     },
     {
@@ -4298,126 +4490,6 @@
     },
     {
       "architecture": {
-        "instruct_type": "phi3",
-        "modality": "text->text",
-        "tokenizer": "Other"
-      },
-      "context_length": 128000,
-      "created": 1716508800,
-      "description": "Phi-3 128K Medium is a powerful 14-billion parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. In the MMLU-Pro eval, the model even comes close to a Llama3 70B level of performance.\n\nFor 4k context length, try [Phi-3 Medium 4K](/models/microsoft/phi-3-medium-4k-instruct).",
-      "id": "microsoft/phi-3-medium-128k-instruct",
-      "name": "Phi-3 Medium 128K Instruct",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.000001",
-        "image": "0",
-        "prompt": "0.000001",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "phi3",
-        "modality": "text->text",
-        "tokenizer": "Other"
-      },
-      "context_length": 8192,
-      "created": 1716508800,
-      "description": "Phi-3 128K Medium is a powerful 14-billion parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. In the MMLU-Pro eval, the model even comes close to a Llama3 70B level of performance.\n\nFor 4k context length, try [Phi-3 Medium 4K](/models/microsoft/phi-3-medium-4k-instruct).",
-      "id": "microsoft/phi-3-medium-128k-instruct:free",
-      "name": "Phi-3 Medium 128K Instruct (free)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0",
-        "image": "0",
-        "prompt": "0",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "phi3",
-        "modality": "text->text",
-        "tokenizer": "Other"
-      },
-      "context_length": 128000,
-      "created": 1716681600,
-      "description": "Phi-3 Mini is a powerful 3.8B parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. This model is static, trained on an offline dataset with an October 2023 cutoff date.",
-      "id": "microsoft/phi-3-mini-128k-instruct",
-      "name": "Phi-3 Mini 128K Instruct",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000001",
-        "image": "0",
-        "prompt": "0.0000001",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "phi3",
-        "modality": "text->text",
-        "tokenizer": "Other"
-      },
-      "context_length": 8192,
-      "created": 1716681600,
-      "description": "Phi-3 Mini is a powerful 3.8B parameter model designed for advanced language understanding, reasoning, and instruction following. Optimized through supervised fine-tuning and preference adjustments, it excels in tasks involving common sense, mathematics, logical reasoning, and code processing.\n\nAt time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. This model is static, trained on an offline dataset with an October 2023 cutoff date.",
-      "id": "microsoft/phi-3-mini-128k-instruct:free",
-      "name": "Phi-3 Mini 128K Instruct (free)",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0",
-        "image": "0",
-        "prompt": "0",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 8192,
-        "is_moderated": false,
-        "max_completion_tokens": 4096
-      }
-    },
-    {
-      "architecture": {
-        "instruct_type": "phi3",
-        "modality": "text->text",
-        "tokenizer": "Other"
-      },
-      "context_length": 128000,
-      "created": 1724198400,
-      "description": "Phi-3.5 models are lightweight, state-of-the-art open models. These models were trained with Phi-3 datasets that include both synthetic data and the filtered, publicly available websites data, with a focus on high quality and reasoning-dense properties. Phi-3.5 Mini uses 3.8B parameters, and is a dense decoder-only transformer model using the same tokenizer as [Phi-3 Mini](/models/microsoft/phi-3-mini-128k-instruct).\n\nThe models underwent a rigorous enhancement process, incorporating both supervised fine-tuning, proximal policy optimization, and direct preference optimization to ensure precise instruction adherence and robust safety measures. When assessed against benchmarks that test common sense, language understanding, math, code, long context and logical reasoning, Phi-3.5 models showcased robust and state-of-the-art performance among models with less than 13 billion parameters.",
-      "id": "microsoft/phi-3.5-mini-128k-instruct",
-      "name": "Phi-3.5 Mini 128K Instruct",
-      "per_request_limits": null,
-      "pricing": {
-        "completion": "0.0000001",
-        "image": "0",
-        "prompt": "0.0000001",
-        "request": "0"
-      },
-      "top_provider": {
-        "context_length": 128000,
-        "is_moderated": false,
-        "max_completion_tokens": null
-      }
-    },
-    {
-      "architecture": {
         "instruct_type": "alpaca",
         "modality": "text->text",
         "tokenizer": "Llama2"
@@ -4515,6 +4587,30 @@
     {
       "architecture": {
         "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Qwen"
+      },
+      "context_length": 128000,
+      "created": 1735088567,
+      "description": "QVQ-72B-Preview is an experimental research model developed by the [Qwen](/qwen) team, focusing on enhancing visual reasoning capabilities.\n\n## Performance\n\n|                | **QVQ-72B-Preview** | o1-2024-12-17 | gpt-4o-2024-05-13 | Claude3.5 Sonnet-20241022 | Qwen2VL-72B |\n|----------------|-----------------|---------------|-------------------|----------------------------|-------------|\n| MMMU(val)      | 70.3            | 77.3          | 69.1              | 70.4                       | 64.5        |\n| MathVista(mini) | 71.4            | 71.0          | 63.8              | 65.3                       | 70.5        |\n| MathVision(full)   | 35.9            | –             | 30.4              | 35.6                       | 25.9        |\n| OlympiadBench  | 20.4            | –             | 25.9              | –                          | 11.2        |\n\n\n## Limitations\n\n1. **Language Mixing and Code-Switching:** The model might occasionally mix different languages or unexpectedly switch between them, potentially affecting the clarity of its responses.\n2. **Recursive Reasoning Loops:**  There's a risk of the model getting caught in recursive reasoning loops, leading to lengthy responses that may not even arrive at a final answer.\n3. **Safety and Ethical Considerations:** Robust safety measures are needed to ensure reliable and safe performance. Users should exercise caution when deploying this model.\n4. **Performance and Benchmark Limitations:** Despite the improvements in visual reasoning, QVQ doesn’t entirely replace the capabilities of [Qwen2-VL-72B](/qwen/qwen-2-vl-72b-instruct). During multi-step visual reasoning, the model might gradually lose focus on the image content, leading to hallucinations. Moreover, QVQ doesn’t show significant improvement over [Qwen2-VL-72B](/qwen/qwen-2-vl-72b-instruct) in basic recognition tasks like identifying people, animals, or plants.\n\nNote: Currently, the model only supports single-round dialogues and image outputs. It does not support video inputs.",
+      "id": "qwen/qvq-72b-preview",
+      "name": "Qwen: QvQ 72B Preview",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000005",
+        "image": "0",
+        "prompt": "0.00000025",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
         "modality": "text->text",
         "tokenizer": "Qwen"
       },
@@ -4525,9 +4621,9 @@
       "name": "Qwen: QwQ 32B Preview",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000006",
+        "completion": "0.00000018",
         "image": "0",
-        "prompt": "0.00000015",
+        "prompt": "0.00000012",
         "request": "0"
       },
       "top_provider": {
@@ -4638,22 +4734,22 @@
         "modality": "text->text",
         "tokenizer": "Qwen"
       },
-      "context_length": 32768,
+      "context_length": 33000,
       "created": 1731368400,
       "description": "Qwen2.5-Coder is the latest series of Code-Specific Qwen large language models (formerly known as CodeQwen). Qwen2.5-Coder brings the following improvements upon CodeQwen1.5:\n\n- Significantly improvements in **code generation**, **code reasoning** and **code fixing**. \n- A more comprehensive foundation for real-world applications such as **Code Agents**. Not only enhancing coding capabilities but also maintaining its strengths in mathematics and general competencies.\n\nTo read more about its evaluation results, check out [Qwen 2.5 Coder's blog](https://qwenlm.github.io/blog/qwen2.5-coder-family/).",
       "id": "qwen/qwen-2.5-coder-32b-instruct",
       "name": "Qwen2.5 Coder 32B Instruct",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.00000018",
+        "completion": "0.00000016",
         "image": "0",
-        "prompt": "0.00000008",
+        "prompt": "0.00000007",
         "request": "0"
       },
       "top_provider": {
-        "context_length": 32768,
+        "context_length": 33000,
         "is_moderated": false,
-        "max_completion_tokens": 4096
+        "max_completion_tokens": 3000
       }
     },
     {
@@ -4724,6 +4820,102 @@
       },
       "top_provider": {
         "context_length": 32768,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 8192,
+      "created": 1723507200,
+      "description": "Lunaris 8B is a versatile generalist and roleplaying model based on Llama 3. It's a strategic merge of multiple models, designed to balance creativity with improved logic and general knowledge.\n\nCreated by [Sao10k](https://huggingface.co/Sao10k), this model aims to offer an improved experience over Stheno v3.2, with enhanced creativity and logical reasoning.\n\nFor best results, use with Llama 3 Instruct context template, temperature 1.4, and min_p 0.1.",
+      "id": "sao10k/l3-lunaris-8b",
+      "name": "Sao10K: Llama 3 8B Lunaris",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00000006",
+        "image": "0",
+        "prompt": "0.00000003",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 8192,
+      "created": 1718668800,
+      "description": "Euryale 70B v2.1 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k).\n\n- Better prompt adherence.\n- Better anatomy / spatial awareness.\n- Adapts much better to unique and custom formatting / reply formats.\n- Very creative, lots of unique swipes.\n- Is not restrictive during roleplays.",
+      "id": "sao10k/l3-euryale-70b",
+      "name": "Sao10k: Llama 3 Euryale 70B v2.1",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000004",
+        "image": "0",
+        "prompt": "0.00000035",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 8192,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 128000,
+      "created": 1724803200,
+      "description": "Euryale L3.1 70B v2.2 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k). It is the successor of [Euryale L3 70B v2.1](/models/sao10k/l3-euryale-70b).",
+      "id": "sao10k/l3.1-euryale-70b",
+      "name": "Sao10K: Llama 3.1 Euryale 70B v2.2",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000004",
+        "image": "0",
+        "prompt": "0.00000035",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 128000,
+        "is_moderated": false,
+        "max_completion_tokens": 4096
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 16384,
+      "created": 1734535928,
+      "description": "Euryale L3.3 70B is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k). It is the successor of [Euryale L3 70B v2.2](/models/sao10k/l3-euryale-70b).",
+      "id": "sao10k/l3.3-euryale-70b",
+      "name": "Sao10K: Llama 3.3 Euryale 70B",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.0000015",
+        "image": "0",
+        "prompt": "0.0000015",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 16384,
         "is_moderated": false,
         "max_completion_tokens": null
       }
@@ -4903,6 +5095,54 @@
         "tokenizer": "Grok"
       },
       "context_length": 131072,
+      "created": 1734232814,
+      "description": "Grok 2 1212 introduces significant enhancements to accuracy, instruction adherence, and multilingual support, making it a powerful and flexible choice for developers seeking a highly steerable, intelligent model.",
+      "id": "x-ai/grok-2-1212",
+      "name": "xAI: Grok 2 1212",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00001",
+        "image": "0",
+        "prompt": "0.000002",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 131072,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text+image->text",
+        "tokenizer": "Grok"
+      },
+      "context_length": 32768,
+      "created": 1734237338,
+      "description": "Grok 2 Vision 1212 advances image-based AI with stronger visual comprehension, refined instruction-following, and multilingual support. From object recognition to style analysis, it empowers developers to build more intuitive, visually aware applications. Its enhanced steerability and reasoning establish a robust foundation for next-generation image solutions.\n\nTo read more about this model, check out [xAI's announcement](https://x.ai/blog/grok-1212).",
+      "id": "x-ai/grok-2-vision-1212",
+      "name": "xAI: Grok 2 Vision 1212",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0.00001",
+        "image": "0.0036",
+        "prompt": "0.000002",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 32768,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
+        "instruct_type": null,
+        "modality": "text->text",
+        "tokenizer": "Grok"
+      },
+      "context_length": 131072,
       "created": 1729382400,
       "description": "Grok Beta is xAI's experimental language model with state-of-the-art reasoning capabilities, best for complex and multi-step use cases.\n\nIt is the successor of [Grok 2](https://x.ai/blog/grok-2) with enhanced context length.",
       "id": "x-ai/grok-beta",
@@ -4934,7 +5174,7 @@
       "per_request_limits": null,
       "pricing": {
         "completion": "0.000015",
-        "image": "0.0018",
+        "image": "0.009",
         "prompt": "0.000005",
         "request": "0"
       },
