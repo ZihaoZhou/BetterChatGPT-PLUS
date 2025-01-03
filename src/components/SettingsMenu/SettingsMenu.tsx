@@ -59,8 +59,8 @@ const SettingsMenu = () => {
             <PromptLibraryMenu />
             <ChatConfigMenu />
             <TotalTokenCost />
-            <MigrationButton />
             <CustomModelsManager />
+            <MigrationButton />
           </div>
         </PopupModal>
       )}

@@ -22,56 +22,52 @@ export interface CustomModel {
     is_moderated: boolean;
     max_completion_tokens: number;
   };
+  is_stream_supported: boolean;
 }
 
 export interface CustomModelsSlice {
   customModels: CustomModel[];
-  addCustomModel: (model: Omit<CustomModel, 'architecture' | 'context_length' | 'per_request_limits' | 'pricing' | 'top_provider'> & { architecture: { modality: CustomModel['architecture']['modality'] } }) => void;
+  addCustomModel: (model: Omit<CustomModel, 'architecture' | 'per_request_limits' | 'top_provider'> & {
+    architecture: Pick<CustomModel['architecture'], 'modality' | 'tokenizer' | 'instruct_type'>;
+  }) => void;
   removeCustomModel: (modelId: string) => void;
 }
 
 const defaultModelValues = {
   architecture: {
     instruct_type: null,
-    tokenizer: 'GPT'
+    tokenizer: 'cl100k_base'
   },
-  context_length: 128000,
   per_request_limits: null,
-  pricing: {
-    completion: '0.00001',
-    image: '0.003613',
-    prompt: '0.0000025',
-    request: '0'
-  },
   top_provider: {
     context_length: 128000,
-    is_moderated: true,
-    max_completion_tokens: 16384
-  }
+    max_completion_tokens: 16384,
+    is_moderated: true
+  },
+  is_stream_supported: true
 };
 
 export const createCustomModelsSlice: StoreSlice<CustomModelsSlice> = (set) => ({
   customModels: [],
   addCustomModel: (model) => {
-    set((state) => {
-      const newState = {
-        ...state,
-        customModels: [
-          ...state.customModels,
-          {
-            ...model,
-            ...defaultModelValues,
-            architecture: {
-              ...defaultModelValues.architecture,
-              modality: model.architecture.modality
-            }
+    set((state) => ({
+      ...state,
+      customModels: [
+        ...state.customModels,
+        {
+          ...defaultModelValues,
+          ...model,
+          architecture: {
+            ...defaultModelValues.architecture,
+            modality: model.architecture.modality,
+            instruct_type: model.architecture.instruct_type,
+            tokenizer: model.architecture.tokenizer
           }
-        ]
-      };
-      // Reload models after adding a new one
-      initializeModels();
-      return newState;
-    });
+        }
+      ]
+    }));
+    // Reload models after adding a new one
+    initializeModels();
   },
   removeCustomModel: (modelId) => {
     set((state) => {

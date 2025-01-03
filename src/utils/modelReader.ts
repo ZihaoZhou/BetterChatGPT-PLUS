@@ -1,5 +1,6 @@
 import { ModelCost } from '@type/chat';
 import useStore from '@store/store';
+import i18next from 'i18next';
 
 interface ModelData {
   id: string;
@@ -39,6 +40,7 @@ export const loadModels = async (): Promise<{
   modelCost: ModelCost;
   modelTypes: { [key: string]: string };
   modelStreamSupport: { [key: string]: boolean };
+  modelDisplayNames: { [key: string]: string };
 }> => {
   const response = await fetch(modelsJsonUrl);
   const modelsJson: ModelsJson = await response.json();
@@ -48,6 +50,7 @@ export const loadModels = async (): Promise<{
   const modelCost: ModelCost = {};
   const modelTypes: { [key: string]: string } = {};
   const modelStreamSupport: { [key: string]: boolean } = {};
+  const modelDisplayNames: { [key: string]: string } = {};
 
   // Add custom models first
   const customModels = useStore.getState().customModels;
@@ -62,7 +65,10 @@ export const loadModels = async (): Promise<{
     };
     
     modelTypes[modelId] = model.architecture.modality.includes('image') ? 'image' : 'text';
-    modelStreamSupport[modelId] = true;
+    modelStreamSupport[modelId] = model.is_stream_supported;
+    console.log("init model:", model.name);
+    console.log("init model with stream support:", model.is_stream_supported);
+    modelDisplayNames[modelId] = `${model.name} ${i18next.t('customModels.customLabel', { ns: 'model' })}`;
   });
 
   // Prepend specific models
@@ -103,6 +109,7 @@ export const loadModels = async (): Promise<{
     };
     modelTypes[model.id] = model.type;
     modelStreamSupport[model.id] = model.is_stream_supported;
+    modelDisplayNames[model.id] = model.id;
   });
 
   modelsJson.data.forEach((model) => {
@@ -133,6 +140,7 @@ export const loadModels = async (): Promise<{
       modelTypes[modelId] = 'text';
     }
     modelStreamSupport[modelId] = model.is_stream_supported;
+    modelDisplayNames[modelId] = modelId;
   });
 
   // Sort modelOptions to prioritize custom models at the top, followed by gpt-4o models, then o1 models, and then other OpenAI models
@@ -166,7 +174,14 @@ export const loadModels = async (): Promise<{
     return 0;
   });
 
-  return { modelOptions, modelMaxToken, modelCost, modelTypes, modelStreamSupport };
+  return {
+    modelOptions,
+    modelMaxToken,
+    modelCost,
+    modelTypes,
+    modelStreamSupport,
+    modelDisplayNames,
+  };
 };
 
 export type ModelOptions = string;

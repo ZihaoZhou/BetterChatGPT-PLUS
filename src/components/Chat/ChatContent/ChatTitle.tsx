@@ -8,6 +8,7 @@ import { _defaultChatConfig } from '@constants/chat';
 
 const ChatTitle = React.memo(() => {
   const { t } = useTranslation('model');
+  const customModels = useStore((state) => state.customModels);
   const chat = useStore(
     (state) =>
       state.chats &&
@@ -38,6 +39,15 @@ const ChatTitle = React.memo(() => {
     setChats(updatedChats);
   };
 
+  const getModelDisplayName = (modelId: string) => {
+    const isCustom = customModels.some(m => m.id === modelId);
+    if (isCustom) {
+      const customModel = customModels.find(m => m.id === modelId);
+      return `${customModel?.name} ${t('customModels.customLabel', { ns: 'model' })}`;
+    }
+    return modelId;
+  };
+
   // for migrating from old ChatInterface to new ChatInterface (with config)
   useEffect(() => {
     const chats = useStore.getState().chats;
@@ -57,7 +67,7 @@ const ChatTitle = React.memo(() => {
         }}
       >
         <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
-          {t('model')}: {chat.config.model}
+          {t('model')}: {getModelDisplayName(chat.config.model)}
         </div>
         <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
           {t('token.label')}: {chat.config.max_tokens}
