@@ -1,4 +1,6 @@
 import { ModelCost } from '@type/chat';
+import useStore from '@store/store';
+import i18next from 'i18next';
 
 interface ModelData {
   id: string;
@@ -38,6 +40,7 @@ export const loadModels = async (): Promise<{
   modelCost: ModelCost;
   modelTypes: { [key: string]: string };
   modelStreamSupport: { [key: string]: boolean };
+  modelDisplayNames: { [key: string]: string };
 }> => {
   const response = await fetch(modelsJsonUrl);
   const modelsJson: ModelsJson = await response.json();
@@ -47,6 +50,26 @@ export const loadModels = async (): Promise<{
   const modelCost: ModelCost = {};
   const modelTypes: { [key: string]: string } = {};
   const modelStreamSupport: { [key: string]: boolean } = {};
+  const modelDisplayNames: { [key: string]: string } = {};
+
+  // Add custom models first
+  const customModels = useStore.getState().customModels;
+  customModels.forEach((model) => {
+    const modelId = model.id;
+    modelOptions.push(modelId);
+    modelMaxToken[modelId] = model.context_length;
+    modelCost[modelId] = {
+      prompt: { price: parseFloat(model.pricing.prompt), unit: 1 },
+      completion: { price: parseFloat(model.pricing.completion), unit: 1 },
+      image: { price: parseFloat(model.pricing.image), unit: 1 },
+    };
+    
+    modelTypes[modelId] = model.architecture.modality.includes('image') ? 'image' : 'text';
+    modelStreamSupport[modelId] = model.is_stream_supported;
+    console.log("init model:", model.name);
+    console.log("init model with stream support:", model.is_stream_supported);
+    modelDisplayNames[modelId] = `${model.name} ${i18next.t('customModels.customLabel', { ns: 'model' })}`;
+  });
 
   // Prepend specific models
   const specificModels = [
@@ -86,6 +109,7 @@ export const loadModels = async (): Promise<{
     };
     modelTypes[model.id] = model.type;
     modelStreamSupport[model.id] = model.is_stream_supported;
+    modelDisplayNames[model.id] = model.id;
   });
 
   modelsJson.data.forEach((model) => {
@@ -116,10 +140,13 @@ export const loadModels = async (): Promise<{
       modelTypes[modelId] = 'text';
     }
     modelStreamSupport[modelId] = model.is_stream_supported;
+    modelDisplayNames[modelId] = modelId;
   });
 
-  // Sort modelOptions to prioritize gpt-4o models at the top, followed by o1 models, and then other OpenAI models
+  // Sort modelOptions to prioritize custom models at the top, followed by gpt-4o models, then o1 models, and then other OpenAI models
   modelOptions.sort((a, b) => {
+    const isCustomA = customModels.some(m => m.id === a);
+    const isCustomB = customModels.some(m => m.id === b);
     const isGpt4oA = a.startsWith('gpt-4o');
     const isGpt4oB = b.startsWith('gpt-4o');
     const isO1A = a.startsWith('o1-');
@@ -127,7 +154,11 @@ export const loadModels = async (): Promise<{
     const isOpenAIA = a.startsWith('gpt-');
     const isOpenAIB = b.startsWith('gpt-');
 
-    // Prioritize gpt-4o models
+    // Prioritize custom models
+    if (isCustomA && !isCustomB) return -1;
+    if (!isCustomA && isCustomB) return 1;
+
+    // If both are custom or neither, prioritize gpt-4o models
     if (isGpt4oA && !isGpt4oB) return -1;
     if (!isGpt4oA && isGpt4oB) return 1;
 
@@ -143,7 +174,14 @@ export const loadModels = async (): Promise<{
     return 0;
   });
 
-  return { modelOptions, modelMaxToken, modelCost, modelTypes, modelStreamSupport };
+  return {
+    modelOptions,
+    modelMaxToken,
+    modelCost,
+    modelTypes,
+    modelStreamSupport,
+    modelDisplayNames,
+  };
 };
 
 export type ModelOptions = string;

@@ -5,6 +5,7 @@ import { ConfigInterface, ImageDetail } from '@type/chat';
 import Select from 'react-select';
 import { modelOptions, modelMaxToken } from '@constants/modelLoader';
 import { ModelOptions } from '@utils/modelReader';
+import useStore from '@store/store';
 
 const ConfigMenu = ({
   setIsModalOpen,
@@ -94,12 +95,26 @@ export const ModelSelector = ({
   _setModel: React.Dispatch<React.SetStateAction<ModelOptions>>;
   _label: string;
 }) => {
-  const { t } = useTranslation('model');
+  const { t } = useTranslation(['main', 'model']);
+  const [localModelOptions, setLocalModelOptions] = useState<string[]>(modelOptions);
+  const customModels = useStore((state) => state.customModels);
 
-  const modelOptionsFormatted = modelOptions.map((model) => ({
-    value: model,
-    label: model,
-  }));
+  // Update model options when custom models change
+  useEffect(() => {
+    const customModelIds = customModels.map(model => model.id);
+    const defaultModelIds = modelOptions.filter(id => !customModelIds.includes(id));
+    setLocalModelOptions([...customModelIds, ...defaultModelIds]);
+  }, [customModels]);
+
+  const modelOptionsFormatted = localModelOptions.map((model) => {
+    const isCustom = customModels.some(m => m.id === model);
+    const customModel = customModels.find(m => m.id === model);
+    return {
+      value: model,
+      label: isCustom ? `${customModel?.name} ${t('customModels.customLabel', { ns: 'model' })}` : model,
+    };
+  });
+
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
@@ -138,7 +153,12 @@ export const ModelSelector = ({
         {_label}
       </label>
       <Select
-        value={{ value: _model, label: _model }}
+        value={{
+          value: _model,
+          label: customModels.some(m => m.id === _model) 
+            ? `${customModels.find(m => m.id === _model)?.name} ${t('customModels.customLabel', { ns: 'model' })}` 
+            : _model,
+        }}
         onChange={(selectedOption) =>
           _setModel(selectedOption?.value as ModelOptions)
         }

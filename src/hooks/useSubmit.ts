@@ -93,6 +93,13 @@ const useSubmit = () => {
     try {
       const isStreamSupported =
         modelStreamSupport[chats[currentChatIndex].config.model];
+        const { model, temperature, max_tokens } = chats[currentChatIndex].config;
+        const supportsStream = modelStreamSupport[model];
+        console.log('[useSubmit] Model streaming support:', {
+          model,
+          supportsStream,
+          isStreamSupported
+        });
       let data;
       let stream;
       if (chats[currentChatIndex].messages.length === 0)
