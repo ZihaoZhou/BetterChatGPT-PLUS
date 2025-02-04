@@ -990,7 +990,7 @@
         "modality": "text->text",
         "tokenizer": "DeepSeek"
       },
-      "context_length": 128000,
+      "context_length": 163840,
       "created": 1737381095,
       "description": "DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.\n\nFully open-source model & [technical report](https://api-docs.deepseek.com/news/news250120).\n\nMIT licensed: Distill & commercialize freely!",
       "id": "deepseek/deepseek-r1:free",
@@ -1003,7 +1003,7 @@
         "request": "0"
       },
       "top_provider": {
-        "context_length": 128000,
+        "context_length": 163840,
         "is_moderated": false,
         "max_completion_tokens": 4096
       }
@@ -1014,7 +1014,7 @@
         "modality": "text->text",
         "tokenizer": "DeepSeek"
       },
-      "context_length": 163840,
+      "context_length": 128000,
       "created": 1737381095,
       "description": "DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.\n\nFully open-source model & [technical report](https://api-docs.deepseek.com/news/news250120).\n\nMIT licensed: Distill & commercialize freely!",
       "id": "deepseek/deepseek-r1:nitro",
@@ -1027,9 +1027,9 @@
         "request": "0"
       },
       "top_provider": {
-        "context_length": 163840,
+        "context_length": 128000,
         "is_moderated": false,
-        "max_completion_tokens": 32768
+        "max_completion_tokens": 8000
       }
     },
     {
@@ -1926,22 +1926,22 @@
         "modality": "text->text",
         "tokenizer": "Mistral"
       },
-      "context_length": 32000,
+      "context_length": 16384,
       "created": 1731464428,
       "description": "Inferor 12B is a merge of top roleplay models, expert on immersive narratives and storytelling.\n\nThis model was merged using the [Model Stock](https://arxiv.org/abs/2403.19522) merge method using [anthracite-org/magnum-v4-12b](https://openrouter.ai/anthracite-org/magnum-v4-72b) as a base.\n",
       "id": "infermatic/mn-inferor-12b",
       "name": "Infermatic: Mistral Nemo Inferor 12B",
       "per_request_limits": null,
       "pricing": {
-        "completion": "0.0000005",
+        "completion": "0.0000012",
         "image": "0",
-        "prompt": "0.00000025",
+        "prompt": "0.0000008",
         "request": "0"
       },
       "top_provider": {
-        "context_length": 32000,
+        "context_length": 16384,
         "is_moderated": false,
-        "max_completion_tokens": null
+        "max_completion_tokens": 4096
       }
     },
     {
@@ -3986,6 +3986,30 @@
     },
     {
       "architecture": {
+        "instruct_type": "llama3",
+        "modality": "text->text",
+        "tokenizer": "Llama3"
+      },
+      "context_length": 131072,
+      "created": 1728950400,
+      "description": "NVIDIA's Llama 3.1 Nemotron 70B is a language model designed for generating precise and useful responses. Leveraging [Llama 3.1 70B](/models/meta-llama/llama-3.1-70b-instruct) architecture and Reinforcement Learning from Human Feedback (RLHF), it excels in automatic alignment benchmarks. This model is tailored for applications requiring high accuracy in helpfulness and response generation, suitable for diverse user queries across multiple domains.\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
+      "id": "nvidia/llama-3.1-nemotron-70b-instruct:free",
+      "name": "NVIDIA: Llama 3.1 Nemotron 70B Instruct (free)",
+      "per_request_limits": null,
+      "pricing": {
+        "completion": "0",
+        "image": "0",
+        "prompt": "0",
+        "request": "0"
+      },
+      "top_provider": {
+        "context_length": 131072,
+        "is_moderated": false,
+        "max_completion_tokens": null
+      }
+    },
+    {
+      "architecture": {
         "instruct_type": null,
         "modality": "text+image->text",
         "tokenizer": "GPT"
@@ -4701,7 +4725,7 @@
       "top_provider": {
         "context_length": 4096,
         "is_moderated": false,
-        "max_completion_tokens": null
+        "max_completion_tokens": 4096
       }
     },
     {
@@ -5142,7 +5166,7 @@
         "modality": "text->text",
         "tokenizer": "Qwen"
       },
-      "context_length": 32768,
+      "context_length": 128000,
       "created": 1726704000,
       "description": "Qwen2.5 72B is the latest series of Qwen large language models. Qwen2.5 brings the following improvements upon Qwen2:\n\n- Significantly more knowledge and has greatly improved capabilities in coding and mathematics, thanks to our specialized expert models in these domains.\n\n- Significant improvements in instruction following, generating long texts (over 8K tokens), understanding structured data (e.g, tables), and generating structured outputs especially JSON. More resilient to the diversity of system prompts, enhancing role-play implementation and condition-setting for chatbots.\n\n- Long-context Support up to 128K tokens and can generate up to 8K tokens.\n\n- Multilingual support for over 29 languages, including Chinese, English, French, Spanish, Portuguese, German, Italian, Russian, Japanese, Korean, Vietnamese, Thai, Arabic, and more.\n\nUsage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).",
       "id": "qwen/qwen-2.5-72b-instruct",
@@ -5151,13 +5175,13 @@
       "pricing": {
         "completion": "0.0000004",
         "image": "0",
-        "prompt": "0.00000023",
+        "prompt": "0.00000013",
         "request": "0"
       },
       "top_provider": {
-        "context_length": 32768,
+        "context_length": 128000,
         "is_moderated": false,
-        "max_completion_tokens": 4096
+        "max_completion_tokens": null
       }
     },
     {
