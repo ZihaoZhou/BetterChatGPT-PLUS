@@ -6,6 +6,7 @@ import {
   TextContentInterface,
 } from '@type/chat';
 import useStore from '@store/store';
+import { findProviderForModel } from '@components/ConfigMenu/ConfigMenu';
 
 const date = new Date();
 const dateString =
@@ -30,6 +31,7 @@ export const reduceMessagesToTotalToken = 256000; // sufficient for almost all m
 
 export const _defaultChatConfig: ConfigInterface = {
   model: defaultModel,
+  provider: findProviderForModel(defaultModel),
   max_tokens: defaultUserMaxToken,
   temperature: 0.7,
   presence_penalty: 0,
