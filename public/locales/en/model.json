@@ -31,30 +31,5 @@
     "low": "low",
     "high": "high",
     "auto": "auto"
-  },
-  "customModels": {
-    "title": "Custom Models",
-    "addModel": "Add Model",
-    "modelId": "Model ID (e.g. gpt4)",
-    "modelName": "Model Name",
-    "modality": "Model Type",
-    "textOnly": "Text Only",
-    "textAndImage": "Text + Image",
-    "yourCustomModels": "Your Custom Models",
-    "noModels": "No custom models added yet",
-    "remove": "Remove",
-    "advancedSettings": "Advanced Settings",
-    "showAdvanced": "Show Advanced Settings",
-    "hideAdvanced": "Hide Advanced Settings",
-    "contextLength": "Context Length (max tokens)",
-    "maxCompletionTokens": "Max Completion Tokens",
-    "pricing": "Pricing (USD)",
-    "promptPrice": "Prompt Price (per token)",
-    "completionPrice": "Completion Price (per token)",
-    "imagePrice": "Image Price (per image)",
-    "requestPrice": "Request Base Price",
-    "customLabel": "(custom)",
-    "streamSupported": "Stream Support",
-    "streamSupportedDescription": "Enable streaming for real-time response generation"
   }
 }

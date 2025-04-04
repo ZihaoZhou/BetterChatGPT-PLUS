@@ -4,7 +4,7 @@ import { Theme } from './theme';
 
 // The types in this file must mimick the structure of the the API request
 
-export type Content = 'text' | 'image_url';
+export type Content = 'text' | 'image_url' | 'file';
 export type ImageDetail = 'low' | 'high' | 'auto';
 export const imageDetails: ImageDetail[] = ['low', 'high', 'auto'];
 export type Role = 'user' | 'assistant' | 'system';
@@ -23,6 +23,28 @@ export interface TextContentInterface extends ContentInterface {
   text: string;
 }
 
+export interface FileContentInterface {
+  type: 'file';
+  file: {
+    name: string;
+    type: string;
+    content: string; // base64 encoded content
+    size: number;
+  };
+}
+
+export interface MessageInterface {
+  role: Role;
+  content: ContentInterface[];
+}
+
+export interface ChatInterface {
+  id: string;
+  title: string;
+  messages: MessageInterface[];
+  config: ConfigInterface;
+}
+
 export function strToTextContent(ob: string): TextContentInterface {
   return {
     type: 'text',
@@ -36,6 +58,10 @@ export function isTextContent(ob: ContentInterface | undefined): ob is TextConte
 
 export function isImageContent(ob: ContentInterface | undefined): ob is ImageContentInterface {
   return ob !== undefined && ob !== null && (ob as ImageContentInterface).image_url !== undefined;
+}
+
+export function isFileContent(ob: ContentInterface | undefined): ob is FileContentInterface {
+  return ob !== undefined && ob !== null && (ob as FileContentInterface).file !== undefined;
 }
 
 export interface ContentInterface {

@@ -69,14 +69,14 @@ const ConfigMenu = ({
           _setTemperature={_setTemperature}
         />
         <TopPSlider _topP={_topP} _setTopP={_setTopP} />
-        <PresencePenaltySlider
+        {/* <PresencePenaltySlider
           _presencePenalty={_presencePenalty}
           _setPresencePenalty={_setPresencePenalty}
         />
         <FrequencyPenaltySlider
           _frequencyPenalty={_frequencyPenalty}
           _setFrequencyPenalty={_setFrequencyPenalty}
-        />
+        /> */}
         <ImageDetailSelector
           _imageDetail={_imageDetail}
           _setImageDetail={_setImageDetail}

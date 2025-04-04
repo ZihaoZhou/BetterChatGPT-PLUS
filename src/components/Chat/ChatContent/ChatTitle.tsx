@@ -78,12 +78,12 @@ const ChatTitle = React.memo(() => {
         <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
           {t('topP.label')}: {chat.config.top_p}
         </div>
-        <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
-          {t('presencePenalty.label')}: {chat.config.presence_penalty}
-        </div>
-        <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
-          {t('frequencyPenalty.label')}: {chat.config.frequency_penalty}
-        </div>
+        {/*    <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
+            {t('presencePenalty.label')}: {chat.config.presence_penalty}
+          </div>
+          <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
+            {t('frequencyPenalty.label')}: {chat.config.frequency_penalty}
+          </div>*/}
         <div className='text-center p-1 rounded-md bg-gray-300/20 dark:bg-gray-900/10 hover:bg-gray-300/50 dark:hover:bg-gray-900/50'>
           {t('imageDetail.label')}: {chat.imageDetail}
         </div>

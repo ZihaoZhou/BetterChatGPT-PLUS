@@ -9,6 +9,7 @@ import {
   ContentInterface,
   ImageContentInterface,
   TextContentInterface,
+  FileContentInterface,
 } from '@type/chat';
 
 import PopupModal from '@components/PopupModal';
@@ -19,6 +20,34 @@ import AttachmentIcon from '@icon/AttachmentIcon';
 import { ModelOptions } from '@utils/modelReader';
 import { modelTypes } from '@constants/modelLoader';
 import { toast } from 'react-toastify';
+import { image } from 'html2canvas/dist/types/css/types/image';
+
+// Define supported file types
+const SUPPORTED_FILE_TYPES = [
+  'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml',
+  'text/plain', 'text/markdown', 'text/html', 
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+  'application/msword', // .doc
+  'text/csv', 
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+  'application/vnd.ms-excel', // .xls
+  'application/pdf'
+];
+
+// File extensions mapping
+const FILE_EXTENSIONS: Record<string, string> = {
+  'text/plain': '.txt',
+  'text/markdown': '.md',
+  'text/html': '.html',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
+  'application/msword': '.doc',
+  'text/csv': '.csv',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
+  'application/vnd.ms-excel': '.xls',
+  'application/pdf': '.pdf',
+};
+
+// File types are handled directly in the renderFilePreview function
 
 const EditView = ({
   content: content,
@@ -89,7 +118,7 @@ const EditView = ({
     }
   };
 
-  // convert message blob urls to base64
+  // convert blobs to base64
   const blobToBase64 = async (blob: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -107,66 +136,134 @@ const EditView = ({
     );
     const chat = updatedChats[currentChatIndex];
     const files = e.target.files!;
-    const newImageURLs = Array.from(files).map((file: Blob) =>
-      URL.createObjectURL(file)
-    );
-    const newImages = await Promise.all(
-      newImageURLs.map(async (url) => {
-        const blob = await fetch(url).then((r) => r.blob());
-        return {
+    
+    for (const file of Array.from(files)) {
+      const fileType = file.type;
+      
+      // Check if file type is supported
+      if (!SUPPORTED_FILE_TYPES.includes(fileType) && 
+          !SUPPORTED_FILE_TYPES.some(type => fileType.startsWith(type.split('/')[0]))) {
+        toast.error(
+          t('notifications.unsupportedFileType', {
+            ns: 'import',
+            fileType: fileType || 'Unknown',
+          }),
+          { autoClose: 5000 }
+        );
+        continue;
+      }
+      
+      const fileUrl = URL.createObjectURL(file);
+      const base64Content = await blobToBase64(file) as string;
+      
+      if (fileType.startsWith('image/')) {
+        // Handle image files
+        const newImage: ImageContentInterface = {
           type: 'image_url',
           image_url: {
             detail: chat.imageDetail,
-            url: (await blobToBase64(blob)) as string,
+            url: base64Content,
           },
-        } as ImageContentInterface;
-      })
-    );
-    const updatedContent = [..._content, ...newImages];
+        };
+        _setContent(prev => [...prev, newImage] as ContentInterface[]);
+      } else {
+        // Handle other file types
+        const newFile: FileContentInterface = {
+          type: 'file',
+          file: {
+            name: file.name,
+            type: fileType,
+            content: base64Content,
+            size: file.size,
+          },
+        };
+        _setContent(prev => [...prev, newFile] as ContentInterface[]);
+      }
+    }
+  };
 
-    _setContent(updatedContent);
+  const estimateFileSize = (url: string): number | null => {
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open('HEAD', url, false); // Synchronous request
+      xhr.send();
+  
+      if (xhr.status >= 200 && xhr.status < 300) {
+        const size = xhr.getResponseHeader('Content-Length');
+        return size ? parseInt(size, 10) : null;
+      } else {
+        console.error(`Failed to get file size. Status code: ${xhr.status}`);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error estimating file size:', error);
+      return null;
+    }
   };
 
   const handleImageUrlChange = () => {
     if (imageUrl.trim() === '') return;
-    const updatedChats: ChatInterface[] = JSON.parse(
-      JSON.stringify(useStore.getState().chats)
-    );
-    const chat = updatedChats[currentChatIndex];
-    const newImage: ImageContentInterface = {
-      type: 'image_url',
-      image_url: {
-        detail: chat.imageDetail,
-        url: imageUrl,
-      },
-    };
-
-    const updatedContent = [..._content, newImage];
-    _setContent(updatedContent);
-    setImageUrl('');
-  };
+    // Support image URLs ending with common image extensions
+    if (imageUrl.includes('.jpg') || imageUrl.includes('.jpeg') || imageUrl.includes('.png') || imageUrl.includes('.gif') || imageUrl.includes('.webp') || imageUrl.includes('.svg')) {
+      const updatedChats: ChatInterface[] = JSON.parse(
+        JSON.stringify(useStore.getState().chats)
+      );
+      const chat = updatedChats[currentChatIndex];
+      const newImage: ImageContentInterface = {
+        type: 'image_url',
+        image_url: {
+          detail: chat.imageDetail,
+          url: imageUrl,
+        },
+      };
+      const updatedContent = [..._content, newImage];
+      _setContent(updatedContent);
+      setImageUrl('');
+    } else {
+      const fileSize = estimateFileSize(imageUrl);
+      // Treat as document
+      const newFile: FileContentInterface = {
+        type: 'file',
+        file: {
+            name: imageUrl.split('/').pop() || 'file',
+            type: (() => {
+              const parts = imageUrl.split('.');
+              if (parts.length > 1) {
+                return parts.pop() || 'application/octet-stream';
+              }
+              return 'application/octet-stream';
+            })(),
+            content: imageUrl,
+            size: fileSize || 0, // Use the estimated size or default to 0
+          },
+        };
+      const updatedContent = [..._content, newFile];
+      _setContent(updatedContent);
+      setImageUrl('');
+      }
+    }
 
   const handleImageDetailChange = (index: number, detail: string) => {
-    const updatedImages = [..._content];
-    updatedImages[index + 1].image_url.detail = detail;
-    _setContent(updatedImages);
+    const updatedContent = [..._content];
+    if (updatedContent[index + 1].type === 'image_url') {
+      updatedContent[index + 1].image_url.detail = detail;
+    }
+    _setContent(updatedContent);
   };
 
-  const handleRemoveImage = (index: number) => {
-    const updatedImages = [..._content];
-    updatedImages.splice(index + 1, 1);
-
-    _setContent(updatedImages);
+  const handleRemoveFile = (index: number) => {
+    const updatedContent = [..._content];
+    updatedContent.splice(index + 1, 1);
+    _setContent(updatedContent);
   };
+
   const handleSave = () => {
     const hasTextContent = (_content[0] as TextContentInterface).text !== '';
-    const hasImageContent = Array.isArray(_content) && _content.some(
-      (content) => content.type === 'image_url'
-    );
+    const hasAttachments = _content.length > 1;
 
     if (
       sticky &&
-      ((!hasTextContent && !hasImageContent) || useStore.getState().generating)
+      ((!hasTextContent && !hasAttachments) || useStore.getState().generating)
     ) {
       return;
     }
@@ -227,9 +324,7 @@ const EditView = ({
   const { handleSubmit } = useSubmit();
   const handleGenerate = () => {
     const hasTextContent = (_content[0] as TextContentInterface).text !== '';
-    const hasImageContent = Array.isArray(_content) && _content.some(
-      (content) => content.type === 'image_url'
-    );
+    const hasAttachments = _content.length > 1;
 
     if (useStore.getState().generating) {
       return;
@@ -244,7 +339,7 @@ const EditView = ({
     const updatedMessages = updatedChats[currentChatIndex].messages;
 
     if (sticky) {
-      if (hasTextContent || hasImageContent) {
+      if (hasTextContent || hasAttachments) {
         updatedMessages.push({ role: inputRole, content: _content });
       }
       _setContent([
@@ -308,7 +403,9 @@ const EditView = ({
       JSON.stringify(useStore.getState().chats)
     );
     const chat = updatedChats[currentChatIndex];
+    
     for (const item of items) {
+      // Handle images from clipboard
       if (item.type.startsWith('image/')) {
         const blob = item.getAsFile();
         if (blob) {
@@ -320,8 +417,26 @@ const EditView = ({
               url: base64Image,
             },
           };
-          const updatedContent = [..._content, newImage];
-          _setContent(updatedContent);
+          _setContent(prev => [...prev, newImage] as ContentInterface[]);
+        }
+      }
+      // Handle other file types from clipboard if available
+      else if (SUPPORTED_FILE_TYPES.includes(item.type)) {
+        const blob = item.getAsFile();
+        if (blob) {
+          const base64Content = (await blobToBase64(blob)) as string;
+          // Use a safer approach for the file extension
+          const fileExt = FILE_EXTENSIONS[item.type] || '';
+          const newFile: FileContentInterface = {
+            type: 'file',
+            file: {
+              name: blob.name || `file${fileExt}`,
+              type: item.type,
+              content: base64Content,
+              size: blob.size,
+            },
+          };
+          _setContent(prev => [...prev, newFile] as ContentInterface[]);
         }
       }
     }
@@ -346,6 +461,7 @@ const EditView = ({
     // Trigger the file input when the custom button is clicked
     (fileInputRef.current! as HTMLInputElement).click();
   };
+  
   return (
     <div className='relative'>
       <div
@@ -393,7 +509,7 @@ const EditView = ({
         sticky={sticky}
         handleFileChange={handleFileChange}
         handleImageDetailChange={handleImageDetailChange}
-        handleRemoveImage={handleRemoveImage}
+        handleRemoveFile={handleRemoveFile}
         handleGenerate={handleGenerate}
         handleSave={handleSave}
         setIsModalOpen={setIsModalOpen}
@@ -423,7 +539,7 @@ const EditViewButtons = memo(
     sticky = false,
     handleFileChange,
     handleImageDetailChange,
-    handleRemoveImage,
+    handleRemoveFile,
     handleGenerate,
     handleSave,
     setIsModalOpen,
@@ -439,7 +555,7 @@ const EditViewButtons = memo(
     sticky?: boolean;
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleImageDetailChange: (index: number, e: string) => void;
-    handleRemoveImage: (index: number) => void;
+    handleRemoveFile: (index: number) => void;
     handleGenerate: () => void;
     handleSave: () => void;
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -456,74 +572,148 @@ const EditViewButtons = memo(
     const generating = useStore.getState().generating;
     const advancedMode = useStore((state) => state.advancedMode);
 
-    return (
-      <div>
-        {modelTypes[model] == 'image' && (
-          <>
-            <div className='flex justify-center'>
-              <div className='flex gap-5'>
-                {_content.slice(1).map((image, index) => (
-                  <div
-                    key={index}
-                    className='image-container flex flex-col gap-2'
-                  >
-                    <img
-                      src={image.image_url.url}
-                      alt={`uploaded-${index}`}
-                      className='h-10'
-                    />
-                    <div className='flex flex-row gap-3'>
-                      <select
-                        onChange={(event) =>
-                          handleImageDetailChange(index, event.target.value)
-                        }
-                        title='Select image resolution'
-                        aria-label='Select image resolution'
-                        defaultValue={image.image_url.detail}
-                        style={{ color: 'black' }}
-                      >
-                        <option value='auto'>Auto</option>
-                        <option value='high'>High</option>
-                        <option value='low'>Low</option>
-                      </select>
-                      <button
-                        className='close-button'
-                        onClick={() => handleRemoveImage(index)}
-                        aria-label='Remove Image'
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className='flex justify-center mt-4'>
-              <input
-                type='text'
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder={t('enter_image_url_placeholder') as string}
-                className='input input-bordered w-full max-w-xs text-gray-800 dark:text-white p-3  border-none bg-gray-200 dark:bg-gray-600 rounded-md m-0 w-full mr-0 h-10 focus:outline-none'
-              />
-              <button
-                className='btn btn-neutral ml-2'
-                onClick={handleImageUrlChange}
-                aria-label={t('add_image_url') as string}
+    // Function to render file previews
+    const renderFilePreview = (content: ContentInterface, index: number) => {
+      if (content.type === 'image_url') {
+        // Handle image files
+        return (
+          <div key={index} className='image-container flex flex-col gap-2'>
+            <img
+              src={content.image_url.url}
+              alt={`uploaded-${index}`}
+              className='h-10'
+            />
+            <div className='flex flex-row gap-3'>
+              <select
+                onChange={(event) =>
+                  handleImageDetailChange(index, event.target.value)
+                }
+                title='Select image resolution'
+                aria-label='Select image resolution'
+                defaultValue={content.image_url.detail}
+                style={{ color: 'black' }}
               >
-                {t('add_image_url')}
+                <option value='auto'>Auto</option>
+                <option value='high'>High</option>
+                <option value='low'>Low</option>
+              </select>
+              <button
+                className='close-button'
+                onClick={() => handleRemoveFile(index)}
+                aria-label='Remove File'
+              >
+                &times;
               </button>
             </div>
-            {/* Hidden file input */}
-            <input
-              type='file'
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-              multiple
-            />
-          </>
+          </div>
+        );
+      } else if (content.type === 'file') {
+        // Handle other file types
+        const fileType = content.file.type;
+        const fileName = content.file.name;
+        
+        // Determine icon or thumbnail based on file type
+        let filePreview;
+        if (fileType.startsWith('text/')) {
+          filePreview = (
+            <div className='file-icon text-file'>
+              <span className='file-ext'>{fileName.split('.').pop()}</span>
+            </div>
+          );
+        } else if (fileType.includes('word')) {
+          filePreview = (
+            <div className='file-icon word-file'>
+              <span className='file-ext'>DOC</span>
+            </div>
+          );
+        } else if (fileType.includes('sheet') || fileType.includes('excel') || fileType === 'text/csv') {
+          filePreview = (
+            <div className='file-icon spreadsheet-file'>
+              <span className='file-ext'>XLS</span>
+            </div>
+          );
+        } else if (fileType === 'application/pdf') {
+          filePreview = (
+            <div className='file-icon pdf-file'>
+              <span className='file-ext'>PDF</span>
+            </div>
+          );
+        } else {
+          filePreview = (
+            <div className='file-icon generic-file'>
+              <span className='file-ext'>{fileName.split('.').pop()}</span>
+            </div>
+          );
+        }
+        
+        return (
+          <div key={index} className='file-container flex flex-col gap-2'>
+            {filePreview}
+            <div className='flex flex-col'>
+              <span className='file-name text-xs truncate' title={fileName}>
+                {fileName}
+              </span>
+              <div className='flex justify-between'>
+                <span className='file-size text-xs'>
+                  {(content.file.size / 1024).toFixed(1) === '0.0' ? '' : `${(content.file.size / 1024).toFixed(1)} KB`}
+                </span>
+                <button
+                  className='close-button'
+                  onClick={() => handleRemoveFile(index)}
+                  aria-label='Remove File'
+                >
+                  &times;
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    };
+
+    return (
+      <div>
+        {/* Display attachments if there are any */}
+        {_content.length > 1 && (
+          <div className='flex justify-center'>
+            <div className='flex flex-wrap gap-5 mt-3'>
+              {_content.slice(1).map((content, index) => 
+                renderFilePreview(content, index)
+              )}
+            </div>
+          </div>
         )}
+
+        {/* Image URL input field for models that support images */}
+        {modelTypes[model] == 'image' && (
+          <div className='flex justify-center mt-4'>
+            <input
+              type='text'
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder={t('enter_image_url_placeholder') as string}
+              className='input input-bordered w-full max-w-xs text-gray-800 dark:text-white p-3 border-none bg-gray-200 dark:bg-gray-600 rounded-md m-0 w-full mr-0 h-10 focus:outline-none'
+            />
+            <button
+              className='btn btn-neutral ml-2'
+              onClick={handleImageUrlChange}
+              aria-label={t('add_image_url') as string}
+            >
+              {t('add_image_url')}
+            </button>
+          </div>
+        )}
+
+        {/* Hidden file input accepting all supported file types */}
+        <input
+          type='file'
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+          multiple
+          accept=".jpg,.jpeg,.png,.gif,.webp,.svg,.txt,.md,.html,.docx,.doc,.csv,.xlsx,.xls,.pdf"
+        />
 
         <div className='flex'>
           <div className='flex-1 text-center mt-2 flex justify-center'>

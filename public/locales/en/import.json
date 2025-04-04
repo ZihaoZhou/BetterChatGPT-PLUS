@@ -3,7 +3,7 @@
       "invalidOpenAIDataFormat": "Invalid openai data format",
       "invalidChatsDataFormat": "Invalid chats data format",
       "invalidFormatForVersion": "Invalid format for specified version",
-      "quotaExceeded": "Storage quota exceeded",
+      "quotaExceeded": "Storage quota exceeded, please download the desktop version for unlimited local storage",
       "textSavedOnly": "Only text was saved",
       "successfulImport": "Successfully imported!",
       "nothingImported": "No data has been imported",
