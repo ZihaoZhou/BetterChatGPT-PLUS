@@ -175,7 +175,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
         {/* Provider Selector */}
         <div className="relative">
           <button
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[150px] justify-between"
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-md flex items-center gap-2 min-w-[150px] justify-between dark:text-white"
             type="button"
             onClick={(e) => {
               e.stopPropagation();
@@ -221,7 +221,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
         {/* Model Selector */}
         <div className="relative">
           <button
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[240px] justify-between"
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-md flex items-center gap-2 min-w-[150px] justify-between dark:text-white"
             onClick={(e) => {
               e.stopPropagation();
               setDropDownModel(prev => !prev);
@@ -480,7 +480,7 @@ export const ImageDetailSelector = ({
       
       <div className="relative">
         <button
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[150px] justify-between"
+          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 rounded-md flex items-center gap-2 min-w-[150px] justify-between dark:text-white"
           type="button"
           onClick={(e) => {
             e.stopPropagation();
