@@ -3,6 +3,7 @@ import { ModelCost } from '@type/chat';
 interface ModelData {
   id: string;
   name: string;
+  provider: string;
   description: string;
   pricing: {
     prompt: string;
@@ -31,7 +32,7 @@ interface ModelsJson {
 }
 
 const modelsJsonUrl = 'https://raw.githubusercontent.com/ZihaoZhou/BetterChatGPT-PLUS/refs/heads/main/public/models.json';
-
+// const modelsJsonUrl = 'models.json';
 export const loadModels = async (): Promise<{
   modelOptions: string[];
   modelMaxToken: { [key: string]: number };
@@ -39,6 +40,7 @@ export const loadModels = async (): Promise<{
   modelTypes: { [key: string]: string };
   modelStreamSupport: { [key: string]: boolean };
   modelDisplayNames: { [key: string]: string };
+  modelProviders: { [key: string]: string[] }; 
 }> => {
   const response = await fetch(modelsJsonUrl);
   const modelsJson: ModelsJson = await response.json();
@@ -49,9 +51,21 @@ export const loadModels = async (): Promise<{
   const modelTypes: { [key: string]: string } = {};
   const modelStreamSupport: { [key: string]: boolean } = {};
   const modelDisplayNames: { [key: string]: string } = {};
+  const modelProviders: { [key: string]: string[] } = {}; // Added this to group by provider
 
   modelsJson.data.forEach((model) => {
     const modelId = model.id.split('/').pop() as string;
+    const provider = model.provider;
+    
+    // Initialize the provider array if it doesn't exist
+    if (!modelProviders[provider]) {
+      modelProviders[provider] = [];
+    }
+    
+    // Add the model to its provider group
+    modelProviders[provider].push(modelId);
+    
+    // Continue with the rest of your existing code
     modelOptions.push(modelId);
     modelMaxToken[modelId] = model.context_length;
     modelCost[modelId] = {
@@ -88,7 +102,9 @@ export const loadModels = async (): Promise<{
     modelTypes,
     modelStreamSupport,
     modelDisplayNames,
+    modelProviders, 
   };
 };
 
 export type ModelOptions = string;
+export type ModelProviders = { [key: string]: ModelOptions[] }

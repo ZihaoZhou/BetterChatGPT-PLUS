@@ -3,7 +3,7 @@
         "invalidOpenAIDataFormat": "无效的 OpenAI 数据格式",
         "invalidChatsDataFormat": "无效的聊天数据格式",
         "invalidFormatForVersion": "指定版本的格式无效",
-        "quotaExceeded": "浏览器本地存储已超出上限（最多5MB），请下载桌面版以获取无限的本地存储",
+        "quotaExceeded": "浏览器本地存储已超出上限（最多5MB），请从 https://github.com/ZihaoZhou/BetterChatGPT-PLUS/releases 下载桌面版以获取无限的本地存储",
         "textSavedOnly": "仅保存了文本",
         "successfulImport": "导入成功！",
         "nothingImported": "没有导入任何数据",

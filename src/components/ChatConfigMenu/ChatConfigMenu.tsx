@@ -12,6 +12,7 @@ import {
   PresencePenaltySlider,
   TemperatureSlider,
   TopPSlider,
+  findProviderForModel,
 } from '@components/ConfigMenu/ConfigMenu';
 
 import {
@@ -75,6 +76,7 @@ const ChatConfigPopup = ({
   const handleSave = () => {
     setDefaultChatConfig({
       model: _model,
+      provider: findProviderForModel(_model),
       max_tokens: _maxToken,
       temperature: _temperature,
       top_p: _topP,

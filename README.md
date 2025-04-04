@@ -1,13 +1,13 @@
 # Better ChatGPT PLUS
 <p>
-    <a href="https://animalnots.github.io/BetterChatGPT-PLUS/" target="_blank"><img src="public/public.jpg" alt="Better ChatGPT" width="150" /></a>
+    <a href="https://shensheibot.github.io/BetterChatGPT-PLUS/" target="_blank"><img src="public/public.jpg" alt="Better ChatGPT" width="150" /></a>
 </p>
 
-![License](https://img.shields.io/github/license/animalnots/BetterChatGPT-PLUS?style=flat-square)
-![Stars](https://img.shields.io/github/stars/animalnots/BetterChatGPT-PLUS?style=flat-square)
-![Forks](https://img.shields.io/github/forks/animalnots/BetterChatGPT-PLUS?style=flat-square)
-![Issues](https://img.shields.io/github/issues/animalnots/BetterChatGPT-PLUS?style=flat-square)
-![Pull Requests](https://img.shields.io/github/issues-pr/animalnots/BetterChatGPT-PLUS?style=flat-square)
+![License](https://img.shields.io/github/license/shensheibot/BetterChatGPT-PLUS?style=flat-square)
+![Stars](https://img.shields.io/github/stars/shensheibot/BetterChatGPT-PLUS?style=flat-square)
+![Forks](https://img.shields.io/github/forks/shensheibot/BetterChatGPT-PLUS?style=flat-square)
+![Issues](https://img.shields.io/github/issues/shensheibot/BetterChatGPT-PLUS?style=flat-square)
+![Pull Requests](https://img.shields.io/github/issues-pr/shensheibot/BetterChatGPT-PLUS?style=flat-square)
 <a href="https://discord.gg/2CKfAbAJrH"><img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0b52aa9e99b832574a53_full_logo_blurple_RGB.png" height="20"></a>
 
 ## 🗳️ Feature Prioritization
@@ -16,7 +16,7 @@ Help us decide what to build next by voting for features on [Canny.io](https://b
 
 ## 🚀 Introducing Better ChatGPT PLUS
 
-Experience free, limitless conversational AI with OpenAI's ChatGPT API. [Visit our website](https://animalnots.github.io/BetterChatGPT-PLUS/) to start.
+Experience free, limitless conversational AI with OpenAI's ChatGPT API. [Visit our website](https://shensheibot.github.io/BetterChatGPT-PLUS/) to start.
 
 ### Key Features
 
@@ -47,23 +47,25 @@ We're continuously improving Better ChatGPT PLUS. Here are the key differences a
 - **Large File Handling**: Improved handling of large files to prevent storage overflow.
 - **OpenAI Import Fix**: Fixed import issues with OpenAI chat branches, ensuring the deepest branch with the most messages is imported.
 
-Contributions are welcome! Feel free to submit [pull requests](https://github.com/animalnots/BetterChatGPT-PLUS/pulls).
+Contributions are welcome! Feel free to submit [pull requests](https://github.com/shensheibot/BetterChatGPT-PLUS/pulls).
 
 ## 🚀 Getting Started
 
-1. **Visit**: [Our Website](https://animalnots.github.io/BetterChatGPT-PLUS/)
+1. **Visit**: [Our Website](https://shensheibot.github.io/BetterChatGPT-PLUS/)
 2. **API Key**: Enter your OpenAI API Key from [here](https://platform.openai.com/account/api-keys)
 3. **Proxy**: Use [ChatGPTAPIFree](https://github.com/ayaka14732/ChatGPTAPIFree) or host your own.
 
 ## 🖥️ Desktop App
 
-Download from [Releases](https://github.com/animalnots/BetterChatGPT-PLUS/releases)
+Download from [Releases](https://github.com/ZihaoZhou/BetterChatGPT-PLUS/releases)
 
 | OS      | Download  |
 | ------- | --------- |
 | Windows | .exe      |
 | MacOS   | .dmg      |
 | Linux   | .AppImage |
+
+MacOS users may need to run `xattr -d com.apple.quarantine BetterChatGPT-PLUS.dmg` to bypass security warnings.
 
 ### Desktop Features:
 
@@ -74,18 +76,18 @@ Download from [Releases](https://github.com/animalnots/BetterChatGPT-PLUS/releas
 
 ### Vercel
 
-[Deploy with Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanimalnots%2FBetterChatGPT-PLUS)
+[Deploy with Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fshensheibot%2FBetterChatGPT-PLUS)
 
 ### GitHub Pages
 
-1. **Star & Fork**: [This Repo](https://github.com/animalnots/BetterChatGPT-PLUS)
+1. **Star & Fork**: [This Repo](https://github.com/shensheibot/BetterChatGPT-PLUS)
 2. **Settings**: Navigate to `Settings` > `Pages`, select `GitHub Actions`
 3. **Actions**: Click `Actions`, `Deploy to GitHub Pages`, then `Run workflow`
 
 ### Local Setup
 
 1. Install [node.js](https://nodejs.org/en/) and [yarn/npm](https://www.npmjs.com/)
-2. **Clone repo**: `git clone https://github.com/animalnots/BetterChatGPT-PLUS.git`
+2. **Clone repo**: `git clone https://github.com/shensheibot/BetterChatGPT-PLUS.git`
 3. Navigate: `cd BetterChatGPT-PLUS`
 4. **Install**: `yarn` or `npm install`
 5. **Launch**: `yarn dev` or `npm run dev`
@@ -104,8 +106,8 @@ Download from [Releases](https://github.com/animalnots/BetterChatGPT-PLUS/releas
 
 ## ⭐️ Star & Support
 
-[Star the repo](https://github.com/animalnots/BetterChatGPT-PLUS) to encourage development.
-<br />[![Star History Chart](https://api.star-history.com/svg?repos=animalnots/BetterChatGPT-PLUS&type=Date)](https://github.com/animalnots/BetterChatGPT-PLUS/stargazers)
+[Star the repo](https://github.com/shensheibot/BetterChatGPT-PLUS) to encourage development.
+<br />[![Star History Chart](https://api.star-history.com/svg?repos=shensheibot/BetterChatGPT-PLUS&type=Date)](https://github.com/shensheibot/BetterChatGPT-PLUS/stargazers)
 
 ### Support Methods:
 
@@ -113,9 +115,9 @@ Support the original creator [here](https://github.com/ztjhz/BetterChatGPT?tab=r
 
 ## ❤️ Contributors
 
-Thanks to all the [contributors](https://github.com/animalnots/BetterChatGPT-PLUS/graphs/contributors)!
-<br /><a href="https://github.com/animalnots/BetterChatGPT-PLUS/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=animalnots/BetterChatGPT-PLUS" />
+Thanks to all the [contributors](https://github.com/shensheibot/BetterChatGPT-PLUS/graphs/contributors)!
+<br /><a href="https://github.com/shensheibot/BetterChatGPT-PLUS/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=shensheibot/BetterChatGPT-PLUS" />
 </a>
 
 ## 🚀 Update & Expand

@@ -2,10 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PopupModal from '@components/PopupModal';
 import { ConfigInterface, ImageDetail } from '@type/chat';
-import Select from 'react-select';
-import { modelOptions, modelMaxToken } from '@constants/modelLoader';
+import { modelMaxToken, modelProviders } from '@constants/modelLoader';
 import { ModelOptions } from '@utils/modelReader';
-import useStore from '@store/store';
+
+// Find initial provider for the current model
+export const findProviderForModel = (model: ModelOptions): string => {
+  // Check in standard providers
+  for (const [provider, models] of Object.entries(modelProviders)) {
+    if (models.includes(model)) {
+      return provider;
+    }
+  }
+  
+  // Default to first provider if not found
+  return Object.keys(modelProviders)[0];
+};
 
 const ConfigMenu = ({
   setIsModalOpen,
@@ -22,6 +33,7 @@ const ConfigMenu = ({
 }) => {
   const [_maxToken, _setMaxToken] = useState<number>(config.max_tokens);
   const [_model, _setModel] = useState<ModelOptions>(config.model);
+  const [_provider, _setProvider] = useState<string>(config.provider);
   const [_temperature, _setTemperature] = useState<number>(config.temperature);
   const [_presencePenalty, _setPresencePenalty] = useState<number>(
     config.presence_penalty
@@ -37,6 +49,7 @@ const ConfigMenu = ({
     setConfig({
       max_tokens: _maxToken,
       model: _model,
+      provider: findProviderForModel(_model),
       temperature: _temperature,
       presence_penalty: _presencePenalty,
       top_p: _topP,
@@ -86,90 +99,167 @@ const ConfigMenu = ({
   );
 };
 
-export const ModelSelector = ({
-  _model,
-  _setModel,
-  _label,
-}: {
+// Add a DownChevronArrow component
+const DownChevronArrow = () => (
+  <svg 
+    width="12" 
+    height="12" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className="ml-1"
+  >
+    <path 
+      d="M6 9L12 15L18 9" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+// Define the props interface
+interface ModelSelectorProps {
   _model: ModelOptions;
   _setModel: React.Dispatch<React.SetStateAction<ModelOptions>>;
-  _label: string;
+  _label?: string | null;
+}
+
+// Provider list - moved inside the component
+export const ModelSelector: React.FC<ModelSelectorProps> = ({ 
+  _model, 
+  _setModel, 
+  _label = 'Model' 
 }) => {
-  const { t } = useTranslation(['main', 'model']);
-  const [localModelOptions, setLocalModelOptions] = useState<string[]>(modelOptions);
-  const customModels = useStore((state) => state.customModels);
+  // Get providers from modelProviders each time component renders
+  const providers = Object.keys(modelProviders);
+  
+  const [provider, setProvider] = useState(findProviderForModel(_model));
+  const [model, setModel] = useState(_model);
+  const [dropDownModel, setDropDownModel] = useState(false);
+  const [dropDownProvider, setDropDownProvider] = useState(false);
 
-  // Update model options when custom models change
-  useEffect(() => {
-    const customModelIds = customModels.map(model => model.id);
-    const defaultModelIds = modelOptions.filter(id => !customModelIds.includes(id));
-    setLocalModelOptions([...customModelIds, ...defaultModelIds]);
-  }, [customModels]);
-
-  const modelOptionsFormatted = localModelOptions.map((model) => {
-    const isCustom = customModels.some(m => m.id === model);
-    const customModel = customModels.find(m => m.id === model);
-    return {
-      value: model,
-      label: isCustom ? `${customModel?.name} ${t('customModels.customLabel', { ns: 'model' })}` : model,
-    };
-  });
-
-  const customStyles = {
-    control: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#2D3748', // Dark background color
-      color: '#E2E8F0', // Light text color
-    }),
-    menu: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#2D3748', // Dark background color
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      'backgroundColor': state.isSelected ? '#4A5568' : '#2D3748', // Darker background for selected option
-      'color': '#E2E8F0', // Light text color
-      '&:hover': {
-        backgroundColor: '#4A5568', // Darker background on hover
-      },
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: '#E2E8F0', // Light text color
-    }),
-    input: (provided: any) => ({
-      ...provided,
-      color: '#E2E8F0', // Light text color for input
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: '#A0AEC0', // Light gray color for placeholder
-    }),
+  // Whenever the local state model changes, update the external state
+  const handleModelChange = (newModel: ModelOptions) => {
+    setModel(newModel);
+    _setModel(newModel);
+    setDropDownModel(false); // Close the dropdown
+    setDropDownProvider(false);
   };
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Only close if clicking outside of our component
+      const target = event.target as Element;
+      if (!target.closest('.model-selector-container')) {
+        setDropDownModel(false);
+        setDropDownProvider(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className='mb-4'>
-      <label className='block text-sm font-medium text-gray-900 dark:text-white'>
-        {_label}
-      </label>
-      <Select
-        value={{
-          value: _model,
-          label: customModels.some(m => m.id === _model) 
-            ? `${customModels.find(m => m.id === _model)?.name} ${t('customModels.customLabel', { ns: 'model' })}` 
-            : _model,
-        }}
-        onChange={(selectedOption) =>
-          _setModel(selectedOption?.value as ModelOptions)
-        }
-        options={modelOptionsFormatted}
-        className='basic-single'
-        classNamePrefix='select'
-        styles={customStyles}
-      />
+    <div className="mb-4 model-selector-container">
+      {_label && (
+        <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+          {_label}
+        </label>
+      )}
+      
+      <div className="flex gap-4"> 
+        {/* Provider Selector */}
+        <div className="relative">
+          <button
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[150px] justify-between"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDropDownProvider(prev => !prev);
+              setDropDownModel(false);
+            }}
+            aria-label="provider"
+          >
+            {provider}
+            <DownChevronArrow />
+          </button>
+          
+          {dropDownProvider && (
+            <div
+              className="absolute top-full left-0 mt-1 z-10 bg-white rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 dark:bg-gray-800 w-full min-w-[150px]"
+            >
+              <ul
+                className="text-sm p-0 m-0"
+                aria-labelledby="providerDropdown"
+              >
+                {providers.map(p => (
+                  <li
+                    className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setProvider(p);
+                      // Get the first model from this provider
+                      const firstModel = modelProviders[p][0];
+                      if (firstModel) {
+                        handleModelChange(firstModel);
+                      }
+                    }}
+                    key={p}
+                  >
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        
+        {/* Model Selector */}
+        <div className="relative">
+          <button
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[240px] justify-between"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDropDownModel(prev => !prev);
+              setDropDownProvider(false);
+            }}
+            aria-label="Select model"
+          >
+            {model} <DownChevronArrow />
+          </button>
+          
+          {dropDownModel && (
+            <div
+              className="absolute top-full left-0 mt-1 z-10 bg-white rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 dark:bg-gray-800 w-full min-w-[240px]"
+            >
+              <ul
+                className="text-sm p-0 m-0"
+                aria-labelledby="modelDropdown"
+              >
+                {modelProviders[provider]?.map(m => (
+                  <li
+                    className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleModelChange(m);
+                    }}
+                    key={m}
+                  >
+                    {m}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export const MaxTokenSlider = ({
   _maxToken,
@@ -353,62 +443,80 @@ export const ImageDetailSelector = ({
   _setImageDetail: React.Dispatch<React.SetStateAction<ImageDetail>>;
 }) => {
   const { t } = useTranslation('model');
+  const [dropDownDetail, setDropDownDetail] = useState(false);
 
-  const imageDetailOptions = [
-    { value: 'low', label: t('imageDetail.low') },
-    { value: 'high', label: t('imageDetail.high') },
-    { value: 'auto', label: t('imageDetail.auto') },
-  ];
-
-  const customStyles = {
-    control: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#2D3748', // Dark background color
-      color: '#E2E8F0', // Light text color
-    }),
-    menu: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#2D3748', // Dark background color
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      'backgroundColor': state.isSelected ? '#4A5568' : '#2D3748', // Darker background for selected option
-      'color': '#E2E8F0', // Light text color
-      '&:hover': {
-        backgroundColor: '#4A5568', // Darker background on hover
-      },
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: '#E2E8F0', // Light text color
-    }),
-    input: (provided: any) => ({
-      ...provided,
-      color: '#E2E8F0', // Light text color for input
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: '#A0AEC0', // Light gray color for placeholder
-    }),
+  // Map image detail values to their translated labels
+  const getDetailLabel = (value: ImageDetail): string => {
+    switch (value) {
+      case 'low':
+        return t('imageDetail.low');
+      case 'high':
+        return t('imageDetail.high');
+      case 'auto':
+        return t('imageDetail.auto');
+      default:
+        return t('imageDetail.auto');
+    }
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.image-detail-container')) {
+        setDropDownDetail(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className='mt-5 pt-5 border-t border-gray-500'>
-      <label className='block text-sm font-medium text-gray-900 dark:text-white'>
+    <div className='mt-5 pt-5 border-t border-gray-500 image-detail-container'>
+      <label className='block text-sm font-medium text-gray-900 dark:text-white mb-2'>
         {t('imageDetail.label')}
       </label>
-      <Select
-        value={imageDetailOptions.find(
-          (option) => option.value === _imageDetail
+      
+      <div className="relative">
+        <button
+          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md flex items-center gap-2 min-w-[150px] justify-between"
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setDropDownDetail(prev => !prev);
+          }}
+          aria-label="image detail"
+        >
+          {getDetailLabel(_imageDetail)}
+          <DownChevronArrow />
+        </button>
+        
+        {dropDownDetail && (
+          <div
+            className="absolute top-full left-0 mt-1 z-10 bg-white rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 dark:bg-gray-800 w-full min-w-[150px]"
+          >
+            <ul
+              className="text-sm p-0 m-0"
+              aria-labelledby="imageDetailDropdown"
+            >
+              {['low', 'high', 'auto'].map((detail) => (
+                <li
+                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    _setImageDetail(detail as ImageDetail);
+                    setDropDownDetail(false);
+                  }}
+                  key={detail}
+                >
+                  {getDetailLabel(detail as ImageDetail)}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
-        onChange={(selectedOption) =>
-          _setImageDetail(selectedOption?.value as ImageDetail)
-        }
-        options={imageDetailOptions}
-        className='basic-single'
-        classNamePrefix='select'
-        styles={customStyles}
-      />
+      </div>
     </div>
   );
 };
