@@ -1,6 +1,8 @@
 name: Build and publish desktop app
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
 concurrency:
   group: 'publish'
