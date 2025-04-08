@@ -31,7 +31,7 @@ interface ModelsJson {
   data: ModelData[];
 }
 
-const modelsJsonUrl = 'https://raw.githubusercontent.com/ZihaoZhou/BetterChatGPT-PLUS/refs/heads/main/public/models.json';
+const modelsJsonUrl = 'models.json';
 // const modelsJsonUrl = 'models.json';
 export const loadModels = async (): Promise<{
   modelOptions: string[];
