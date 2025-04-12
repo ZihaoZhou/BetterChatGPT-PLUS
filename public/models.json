@@ -300,7 +300,7 @@
       }
     },
     {
-      "id": "Llama-4-Maverick-17B-128E",
+      "id": "Llama-4-Maverick",
       "provider": "Meta",
       "context_length": 1000000,
       "pricing": { "prompt": 0.00050, "completion": 0.00077, "image": 0, "request": 0 },
@@ -313,7 +313,7 @@
       }
     },
     {
-      "id": "Llama-4-Scout-17B-16E",
+      "id": "Llama-4-Scout",
       "provider": "Meta",
       "context_length": 10000000,
       "pricing": { "prompt": 0.00011, "completion": 0.00034, "image": 0, "request": 0 },
