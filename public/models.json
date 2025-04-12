@@ -300,6 +300,32 @@
       }
     },
     {
+      "id": "Llama-4-Maverick-17B-128E",
+      "provider": "Meta",
+      "context_length": 1000000,
+      "pricing": { "prompt": 0.00050, "completion": 0.00077, "image": 0, "request": 0 },
+      "is_stream_supported": true,
+      "description": "Meta's Llama 4 Maverick – a 400B total parameter model (17B active) with 128 experts. Features native multimodality with 1M token context window. Excels at reasoning, coding, and complex tasks.",
+      "top_provider": {
+        "context_length": 1000000,
+        "is_moderated": false,
+        "max_completion_tokens": 1000000
+      }
+    },
+    {
+      "id": "Llama-4-Scout-17B-16E",
+      "provider": "Meta",
+      "context_length": 10000000,
+      "pricing": { "prompt": 0.00011, "completion": 0.00034, "image": 0, "request": 0 },
+      "is_stream_supported": true,
+      "description": "Meta's Llama 4 Scout – a 109B total parameter model (17B active) with 16 experts. Supports an industry-leading 10M token context window with native multimodality. Can run on a single H100 GPU with quantization.",
+      "top_provider": {
+        "context_length": 10000000,
+        "is_moderated": false,
+        "max_completion_tokens": 10000000
+      }
+    },
+    {
       "id": "Mistral-Large-2",
       "provider": "Mistral",
       "context_length": 4096,
