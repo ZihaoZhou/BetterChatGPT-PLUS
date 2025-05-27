@@ -1,6 +1,32 @@
 {
   "data": [
     {
+      "id": "Claude-4-Sonnet",
+      "provider": "Anthropic",
+      "context_length": 200000,
+      "pricing": { "prompt": 0.003, "completion": 0.015, "image": 0.003, "request": 0 },
+      "is_stream_supported": true,
+      "description": "Anthropic's Claude 4 Sonnet, a balanced production model with 200k context; offers hybrid reasoning modes and supports vision input and file attachments.",
+      "top_provider": {
+        "context_length": 200000,
+        "is_moderated": false,
+        "max_completion_tokens": 64000
+      }
+    },
+    {
+      "id": "Claude-4-Sonnet-Reasoning",
+      "provider": "Anthropic",
+      "context_length": 200000,
+      "pricing": { "prompt": 0.003, "completion": 0.015, "image": 0.003, "request": 0 },
+      "is_stream_supported": true,
+      "description": "Anthropic's Claude 4 Sonnet (Reasoning mode) with 200k context; maximizes extended thinking capabilities for complex problem-solving and code generation.",
+      "top_provider": {
+        "context_length": 200000,
+        "is_moderated": false,
+        "max_completion_tokens": 64000
+      }
+    },
+    {
       "id": "Claude-3.7-Sonnet",
       "provider": "Anthropic",
       "context_length": 200000,
